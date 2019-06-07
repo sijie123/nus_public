@@ -1,0 +1,343 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=1.3cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+
+\setlength{\columnseprule}{0.4pt}
+
+\newcommand{\rntopic}[1]{\section*{#1}\vspace{-0.7em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.3cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\posints}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.5cm,itemsep=-0.5em}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{3}
+
+\raggedright
+
+\rntopic{Limits}
+
+
+\begin{flatitemize}
+\item \rnname{Maxima}: $f(c)$ is local maximum if $f(c) \geq f(x)$ for $x$ near $c$ (note that inequality is non-strict)
+\item \rnname{Differentiability}: $f$ is differentiable at $a$ if $f'(a)$ exists \\ $f$ is differentiable (in its domain) if $f$ is differentiable at every point in its domain \\ $f$ is differentiable at point $a$ $\implies$ $f$ is continuous at $a$ (but not the converse)
+\item \rnname{Critical Point}: $c$ is a critical point if $c$ is an \underline{interior} point in the domain and either $f'(c)=0$ or $f'(c)$ does not exist (A critical point may not be a local extremum)
+\item \rnname{Inflection Point}: $c$ is an inflection point if concavity changes at $c$ ($c$ is an inflection point $\implies$ $f''(c)=0$, but the converse is not always true)
+
+\item $\displaystyle \lim_{x\rightarrow 0} \frac{\sin \left( x \right)}{x}=1$
+\item \rnname{L'Hôpital's Rule}: $\displaystyle f(a)=g(a)=0 \rnor \infty \implies \lim_{x\rightarrow a} \frac{f(x)}{g(x)} = \lim_{x\rightarrow a} \frac{f'(x)}{g'(x)}$ \\
+use $\ln\left(\dots\right)$ for other forms: $\infty - \infty$, $1^\infty$, $\infty^0$, $0^0$
+\end{flatitemize}
+
+\rntopic{Differentiation \& Integration}
+
+\begin{flatitemize}
+
+\item \rnname{Common derivatives}:
+\vspace{-2.5em}
+\begin{adjustwidth}{-1.2em}{0pt}
+\begin{multicols*}{2}
+\begin{align*}
+y &\longrightarrow \frac{dy}{dx} \\
+\sin x &\longrightarrow \cos x \\
+\cos x &\longrightarrow -\sin x \\
+\tan x &\longrightarrow \sec^2 x \\
+\cot x &\longrightarrow -\csc^2 x \\
+\sec x &\longrightarrow \sec x \tan x \\
+\csc x &\longrightarrow -\csc x \cot x \\
+a^x &\longrightarrow a^x \ln a
+\end{align*}
+\begin{align*}
+\log_a x &\textstyle \longrightarrow \frac{1}{x \ln a} \\
+\sin^{-1} x &\textstyle \longrightarrow \frac{1}{\sqrt{1-x^2}} \\
+\cos^{-1} x &\textstyle \longrightarrow -\frac{1}{\sqrt{1-x^2}} \\
+\tan^{-1} x &\textstyle \longrightarrow \frac{1}{1+x^2} \\
+\cot^{-1} x &\textstyle \longrightarrow -\frac{1}{1+x^2} \\
+\sec^{-1} x &\textstyle \longrightarrow \frac{1}{\left| x \right| \sqrt{x^2-1}} \\
+\csc^{-1} x &\textstyle \longrightarrow -\frac{1}{\left| x \right| \sqrt{x^2-1}} \\
+x^x &\textstyle \longrightarrow x^x \left( \ln x +1 \right)
+\end{align*}
+\end{multicols*}
+\end{adjustwidth}
+\item \rnname{Common integrals}:
+\vspace{-2.5em}
+\begin{adjustwidth}{-3em}{0pt}
+\begin{multicols*}{2}
+\begin{align*}
+y &\longrightarrow \int y \,dx \\
+\sin x &\longrightarrow -\cos x +C \\
+\cos x &\longrightarrow \sin x +C \\
+\tan x &\longrightarrow -\ln \left| \cos x \right| +C \\
+\end{align*}
+\begin{align*}
+\cot x &\longrightarrow \ln \left| \sin x \right| +C \\
+\sec x &\longrightarrow \ln \left| \sec x + \tan x \right| +C \\
+\csc x &\longrightarrow -\ln \left| \csc x + \cot x \right| +C
+\end{align*}
+\end{multicols*}
+\end{adjustwidth}
+
+\item \rnname{Trigonometric formulae}: $1 + \cot^2 x = \csc^2 x$
+
+\item \rnname{Power rule}: $\displaystyle \frac{d}{dx}x^n = nx^{n-1}$
+\item \rnname{Product rule}: $\displaystyle (fg)'(x) = f'(x)g(x) + f(x)g'(x)$
+\item \rnname{Quotient rule}: $\displaystyle \left(\frac{f}{g}\right)'(x) = \frac{f'(x)g(x) - f(x)g'(x)}{\left[g(x)\right]^2}$
+\item \rnname{Chain rule}: $\displaystyle (f \circ g)'(x) = f'(g(x))g'(x)$
+\item \rnname{Parametric differentiation}: $\displaystyle \frac{dy}{dx} = \frac{dy}{dt}\div\frac{dx}{dt}$
+\item \rnname{Implicit differentiation}: Differentiate both sides of an equation containing $x$ and $y$, then solve the resulting equation for the $\displaystyle\frac{dy}{dx}$ term.
+
+\item \rnname{Integration by parts}: $\displaystyle \int u\,dv = uv - \int v\,du$ \\
+Try to differentiate in this order (highest to lowest priority): $\ln x$, $x^n$, $e^x$, $e^{-x}$, $\sin x$, $\cos x$
+
+\item $\displaystyle \frac{d}{dx} \int_a^x f \left( t \right) \, dt = f \left( x \right)$
+\item $\displaystyle \frac{d}{dx} \int_a^{g\left(x\right)} f \left( t \right) \, dt = f \left( g\left(x\right) \right)g' \left( x \right)$
+\item Integral with $\sqrt{R^2-x^2}$: Sub $x=R\sin\theta$ or $x=R\cos\theta$
+\item Integral with $\sqrt{R^2+x^2}$: Sub $x=R\tan\theta$
+\item \rnname{Notable formula}:
+\begin{align*}
+&\int \frac{A \cos \theta + B \sin \theta}{\cos \theta + \sin \theta} d \theta \\ = &\int \frac{\frac{A+B}{2} \left( \cos \theta + \sin \theta \right) + \frac{A-B}{2} \left( \cos \theta - \sin \theta \right) }{\cos \theta + \sin \theta} d \theta \\ = &\int \frac{A+B}{2}  d \theta + \int \frac{A-B}{2} \frac{ \cos \theta - \sin \theta }{\cos \theta + \sin \theta} d \theta \\ = &\frac{A+B}{2} \theta + \frac{A-B}{2} \ln \left(\cos \theta + \sin \theta\right) + C
+\end{align*}
+\end{flatitemize}
+
+\rntopic{Series}
+The following is for $\sum a_n$ - a series of numbers.
+\begin{flatitemize}
+\item \rnname{Convergence}: A sequence $\left\{a_n\right\}$ is convergent if for some fixed $L \in \reals$, we have $\displaystyle \lim_{n\rightarrow \infty} a_n = L$ \\
+Otherwise, the sequence is divergent
+\item \rnname{Partial sum of geometric series}: $\displaystyle s_n = a \frac{1-r^n}{1-r}$, $r \neq 1$ \\
+$s_n$ converges $\iff \left| r \right| < 1$
+\item \rnname{Ratio test for convergence of series}: 
+$\displaystyle \lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| = \rho$, $\displaystyle \left\{s_n\right\} = \left\{ \sum_{i=1}^{n}a_i \right\} \left\{ \begin{matrix}
+\textrm{converges} & \textrm{if } \rho < 1 \\ 
+\textrm{diverges} & \textrm{if } \rho > 1 \\
+\textrm{unknown} & \textrm{if } \rho = 1
+\end{matrix} \right.$
+\item \rnname{Radius of convergence}: No concept of "radius". Series either converges if $\rho < 1$ or diverges when $\rho > 1$.
+\item \rnname{\textit{p}-series}: 
+$\displaystyle \sum_{n=1}^{\infty} \frac{1}{n^p} \left\{ \begin{matrix}
+\textrm{converges} & \textrm{if } p > 1 \\ 
+\textrm{diverges} & \textrm{if } 0 \leq p < 1 \\
+\textrm{no conclusion} & \textrm{if } p = 1 \\
+\end{matrix} \right.$
+\end{flatitemize}
+The following is for $\sum f_n(x)$ - a series of functions.
+\begin{flatitemize}
+\item \rnname{Power series about \textit{x} = \textit{a}}:
+$\displaystyle f(x) = \displaystyle \sum_{n=0}^{\infty} c_n\left(x-a\right)^n$
+\item \rnname{Radius of convergence}: The "allowed range" of value for $x$ such that $\rho < 1$ --- may be $0$, some real no. $h$, or $\infty$\\
+For e.g., $\left| \frac{a_{n+1}}{a_n} \right| = \frac{n}{n+1}\left|x\right| \longrightarrow x \text{ as } n \longrightarrow\infty$, so it converges when $\left|x\right| < 1$ and diverges otherwise.
+\item \rnname{Differentiation \& integration of power series}:
+$\displaystyle f'(x) = \displaystyle \sum_{n=1}^{\infty} nc_n\left(x-a\right)^{n-1}$ \\ radius of convergence $R$ is unchanged by differentiation
+$\displaystyle\int f(x) dx = \displaystyle \sum_{n=0}^{\infty} c_n\frac{\left(x-a\right)^{n+1}}{n+1}+C$ \\ radius of convergence is unchanged by integration
+\item \rnname{Taylor series}: $\displaystyle f\left(x\right) = \sum_{k=0}^{\infty} \frac{f^{\left(k\right)}\left(a\right)}{k!}\left(x-a\right)^k$
+
+\item \rnname{Maclaurin series}: Taylor series with $a=0$
+
+\item \rnname{Common Maclaurin series}:\\
+\underline{\fbox{for $-1 < x < 1$}} \\
+$\displaystyle \frac{1}{1-x} = \sum_{n=0}^{\infty} x^n = 1+x+x^2+x^3+\cdots$ \\
+$\displaystyle \frac{1}{1+x} = \sum_{n=0}^{\infty} (-1)^nx^n = 1-x+x^2-x^3+\cdots$ \\
+$\displaystyle \frac{1}{1+x^2} = \sum_{n=0}^{\infty} (-1)^nx^{2n} = 1-x^2+x^4-x^6+\cdots$ \\
+$\displaystyle \ln\left(1+x\right) = \sum_{n=1}^{\infty} \frac{(-1)^{n-1}x^n}{n} = x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+ \cdots$ \\
+$\displaystyle \tan^{-1} x = \sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1} x^{2n+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$ \\
+$\displaystyle \frac{1}{(1-x)^2} = \sum_{n=1}^{\infty} nx^{n-1} = 1 + 2x + 3x^2 + 4x^3 +\cdots$ \\
+$\displaystyle \frac{1}{(1-x)^3} = \frac{1}{2}\sum_{n=2}^{\infty} n(n-1)x^{n-2} = \frac{1}{2}(2+6x+12x^2+\cdots)$ \\
+$\displaystyle \frac{1}{(1+x)^2} = \sum_{n=0}^{\infty} (-1)^n(n+1)x^{n} = 1 - 2x + 3x^2 - 4x^3 + \cdots$ \\
+\underline{\fbox{for $-\infty < x < +\infty$}} \\
+$\displaystyle \sin x = \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n+1}}{(2n+1)!} = x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots$ \\
+$\displaystyle \cos x = \sum_{n=0}^{\infty}\frac{(-1)^nx^{2n}}{(2n)!} = 1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots$ \\
+$\displaystyle e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots$
+
+\item \rnname{Deriving more Maclaurin/Taylor series}: \\
+Substitution: $\displaystyle f(x)=\sum{g(x)} \implies f(h(x))=\sum{g(h(x))}$ \\
+Multiplication: $\displaystyle f(x)=\sum{g(x)} \implies h(x)f(x)=h(x)\sum{g(x)}=\sum{h(x)g(x)}$ \\
+Differentiation: $\displaystyle f(x)=\sum{g(x)} \implies f'(x)=\sum{g'(x)}$ \\
+Integration: $\displaystyle f(x)=\sum{g(x)} \implies \int_0^x f(x) dx=\int_0^x \sum{g(x)} dx$ \\
+... and other usual operations on functions \\
+Example: Find Taylor series of $\frac{1}{2x+1} \text{ at } x = -2$ (Note: this means finding Taylor series $(x-a)$ where $a = -2$). \\
+One way is to \textbf{hardcore} differentiate $\frac{1}{2x+1}$ and calculate $\displaystyle \sum_{n=0}^{\infty}\frac{f^{(k)}(-2)}{k!}(x-(-2))^{k}$.
+Better soln: write $\frac{1}{2x+1}$ as $q\frac{1}{1-p(x+2)}$ and apply $\displaystyle \frac{1}{1-x} = \sum_{n=0}^{\infty} x^n = 1+x+x^2\cdots$
+
+\needspace{2cm}\item \rnname{Taylor polynomial}:
+\\ $n$\textsuperscript{th} order Taylor polynomial: $P_n(x)$ $\coloneqq$ terms until (and including) $x^n$, use for approximation
+\\ remainder of order $n$: $R_n(x)$ $\coloneqq$ remaining terms
+\\ error $\coloneqq$ absolute value of remaining terms $=\left|R_n(x)\right|$
+
+\item \rnname{Taylor's Theorem}: $\displaystyle R_n\left(x\right) = \frac{f^{\left(n+1\right)}\left(c\right)}{\left(n+1\right)!}\left(x-a\right)^{n+1}$ \\ 
+\mbox{where $x \leq c \leq a$ (when $x \leq a$) or $a \leq c \leq x$ (when $a \leq x$)} \\
+\vspace{0.4em}
+This provides an upper bound for the error term
+
+\end{flatitemize}
+
+\rntopic{Partial Differentiation}
+
+\begin{flatitemize}
+
+\item Partial derivative wrt $x$ -- denoted by $\displaystyle f_x(a,b)$ or $\displaystyle\left.\frac{\partial f}{\partial x} \right| _{(a,b)}$
+\item $f_{xy}=\left(f_x\right)_y = \frac{\partial^2 f}{\partial y \partial x}$ 
+\item $f_{xy}(a,b)=f_{yx}(a,b)$ (if $f_x$, $f_y$, $f_{xy}$, $f_{yx}$ are continuous in the neighbourhood around (a,b) )
+
+\item To check if $f(x,y)$ has partial derivatives of all orders, check if $f_{xy}=f_{yx}$
+
+\item \rnname{Chain rule}: For $z=f(x,y)$ and $x=x(t)$, $y=y(t)$:
+$$\frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt}+\frac{\partial f}{\partial y} \frac{dy}{dt}$$
+For $z=f(x,y)$ and $x=x(s,t)$, $y=y(s,t)$, $w=w(s,t)$:
+$$\frac{\partial z}{\partial s} = \frac{\partial f}{\partial x} \frac{\partial x}{\partial s}+\frac{\partial f}{\partial y} \frac{\partial y}{\partial s}+\frac{\partial f}{\partial w} \frac{\partial w}{\partial s}$$
+
+\item \rnname{Directional derivative} $D_uf$ measures change $\delta f$ when $f$ moves a small distance $\delta t$ \textbf{in direction of vector $u$}.\\
+For \underline{unit vector} $u=u_1\mathbf{i}+u_2\mathbf{j}$:
+$$D_uf(a,b)=f_x(a,b)u_1+f_y(a,b)u_2$$
+$$\Delta f \text{(actual change)} \approx \delta f = D_uf(a,b) \cdot \delta t$$
+\textbf{Convert} $u$ if not a unit vector! $u' = \frac{1}{\sqrt[]{u_1^2 + u_2^2}}(u_1\mathbf{i}+u_2\mathbf{j})$
+
+\item \rnname{Gradient vector} essentially $D_uf$ without direction: $\nabla f(a,b) =f_x(a,b)\mathbf{i}+f_y(a,b)\mathbf{j}$ or $\nabla f(a,b) \cdot u=D_uf(a,b)$ \\
+$$D_uf(a,b)=||\nabla f(a,b)||\cos\theta$$
+Direction of $\nabla f(a,b)$ is steepest, maximum value of $D_uf(x,y)$ is $\left\|\nabla f(x,y)\right\| = \sqrt{f_x(a,b)^2+f_y(a,b)^2}$
+
+\item \rnname{Maxima}: $f(a,b)$ is local maximum if $f(a,b) \geq f(x_1,y_1)$ $\forall$ points $(x_1,y_1)$ near $(a,b)$ (note $\geq$)
+\item \rnname{Critical point}: $(a,b)$ is a critical point if ($f_x(a,b)=0$ \underline{and} $f_y(a,b)=0$) or ($f_x(a,b)$ or $f_y(a,b)$ does not exist). \\
+\textbf{Not all critical pts are min/max points}
+\item \rnname{Discriminant}: $D=f_{xx}(a,b)f_{yy}(a,b)-(f_{xy}(a,b))^2$ \\
+If $D>0$ and $f_{xx}(a,b)>0$ then $(a,b)$ is a local minimum \\
+If $D>0$ and $f_{xx}(a,b)<0$ then $(a,b)$ is a local maximum \\
+If $D<0$ then $(a,b)$ is a saddle point \\
+If $D=0$ then no conclusion can be drawn \\
+\vspace{0.4em}
+For finding max/min, $f_{yy}$ may be used in place of $f_{xx}$
+
+\end{flatitemize}
+
+
+\rntopic{Ordinary Differential Equations}
+
+\begin{flatitemize}
+
+\item \rnname{Definition}: $\displaystyle \sum_{i=0}^{n}a_i(x)y^{(i)}(x) = F(x)$ \\ where $a_i(x)$ and $F(x)$ are functions of $x$ \\ and $y^{(i)}(x)$ is the \textit{i}\textsuperscript{th} derivative of $y$ w.r.t. $x$
+
+\item \rnname{Separable equations}: Separate and integrate both sides
+
+\item \rnname{Exponential decay}: $\displaystyle\frac{dx}{dt}=kx \implies x(t) = x(0)e^{kt}$ \\ $\displaystyle x(0)$ is the initial val., $\displaystyle k=-\frac{\ln 2}{\tau}$ where $\tau$ is the half-life
+
+\item \rnname{Exponential cooling/heating}: $\displaystyle\frac{dx}{dt}=k(x-x_0) \implies x(t)-x_0 = \left(x(0)-x_0\right)e^{kt}$ \\ $\displaystyle x(0)$ is the initial value, $\displaystyle x_0$ is the target value
+
+%\item \rnname{Retarded fall}: $\displaystyle m\frac{dv}{dt}=mg-bv^2 \implies v=k\frac{1+ce^{-pt}}{1-ce^{-pt}}$ where $\displaystyle p=\frac{2kb}{m}$ and $\displaystyle c=\frac{v(0)-k}{v(0)+k}$ and $\displaystyle k=\sqrt{\frac{mg}{b}}$
+
+\item \rnname{Hyperbolic functions}: $\displaystyle\sinh(x)=\frac{e^x-e^{-x}}{2}$
+$\displaystyle\cosh(x)=\frac{e^x+e^{-x}}{2}$ \hspace{1.6em} $\displaystyle\tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}$
+
+%\item \rnname{Reduction to separable form}: If ODE contains fraction where the degree of terms are equal, then we can substitute:\\ 
+%$\displaystyle \frac{dy}{dx}=\frac{y^2-x^2}{xy}=\frac{y}{x}-\frac{x}{y} \implies x \frac{dv}{dx} + v = v-\frac 1v$ \\ where $\displaystyle v=\frac yx$
+
+%\item \rnname{Substitution}: Substitute $u=f(x,y)$ to expr. and $\displaystyle\frac{dy}{dx}$
+
+\item \rnname{Linear 1\textsuperscript{st} order ODEs}: $\displaystyle\frac{dy}{dx}+P(x)y=Q(x)$ $\displaystyle \implies ye^{\int P(x) dx}=\int Q(x)e^{\int P(x) dx}dx$
+
+\item \rnname{Bernoulli equation}: $\displaystyle \frac{dy}{dx}+P(x)y=Q(x)y^n$ $\displaystyle\implies \frac{dz}{dx}+(1-n)P(x)z=(1-n)Q(x)$ where $z=y^{1-n}$ \\ ... which is a linear 1\textsuperscript{st} order ODE
+
+\end{flatitemize}
+
+\rnsubtopic{Homogeneous linear 2\textsuperscript{nd} order ODEs}
+
+$\displaystyle\frac{d^2y}{dx^2}+p(x)\frac{dy}{dx}+q(x)y=0$
+
+\begin{flatitemize}
+
+\item \rnname{Superposition principle}: If $y_1$ and $y_2$ are \textbf{linearly independent} solns then $c_1y_1+c_2y_2$ is also a solution.
+
+\item \rnname{Dimension}: The solution space has dimension 2, so finding 2 \textbf{linearly independent} solutions is sufficient to obtain the general solution
+
+\item \rnname{Guessing}: Obtain 2 lin. indep. solutions by guessing
+
+\item \rnname{Constant $p(x)$ and $q(x)$}: \\
+Let $\displaystyle\frac{d^2y}{dx^2}+A\frac{dy}{dx}+By=0$, then solutions have form $y=e^{\lambda x}$ for some value $\lambda$ \\
+By substitution, $\lambda^2+A\lambda+B=0$, solve for $\lambda=\lambda_1,\lambda_2$ \\
+Two distinct real roots: $y=c_1e^{\lambda_1x}+c_2e^{\lambda_2x}$ \\
+Two repeated (real) roots: $y=c_1e^{\lambda x}+c_2xe^{\lambda x}$ \\
+Two distinct complex roots: If $\displaystyle \lambda_1 \rnor \lambda_2=a+b\sqrt{-1}$ then $\displaystyle y=e^{ax}\left(c_1 \cos bx + c_2 \sin bx\right)$ \\
+\vspace{0.4em}
+Given $\lambda_1, \lambda_2$ we can recover $A=-(\lambda_1+\lambda_2), B=\lambda_1\lambda_2$
+
+
+\end{flatitemize}
+
+\rntopic{Mathematical Modelling}
+
+\begin{flatitemize}
+
+\item \rnname{Malthusian growth model}: \\
+$B \coloneqq$ per capita birth rate (constant, +ve) \\
+$D \coloneqq$ per capita death rate (constant, +ve) \\
+$\displaystyle \frac{dN}{dt}=(B-D)N \implies N(t)=N(0)e^{(B-D)t}$ \\
+$B>D \implies$ population explosion \\
+$B=D \implies$ stable \\
+$B<D \implies$ extinction
+
+\item \rnname{Logistic growth model}: \\
+$B \coloneqq$ per capita birth rate (constant) \\
+$sN \coloneqq$ per capita death rate (linear to population) \\
+$\displaystyle \frac{dN}{dt}=(B-sN)N \implies$ $\displaystyle N(t)=\frac{B}{s+(\frac{B}{N(0)}-s)e^{-Bt}} = \frac{\frac{B}{s}}{1+\left(\frac{B}{s}\cdot\frac{1}{N(0)}-1\right)e^{-Bt}}$ \\
+$B-sN(t)>0 \quad\forall t \implies \frac{B}{s}>N(t)$ \\ $\implies$ smaller than sustainable population \\
+$B-sN(t)=0 \quad\forall t \implies \frac{B}{s}=N(t)$ \\ $\implies$ sustainable population (equilibrium) \\
+$B-sN(t)<0 \quad\forall t \implies \frac{B}{s}<N(t)$ \\ $\implies$ larger than sustainable population \\
+Population always tends to \fbox{$\displaystyle\frac{B}{s}$} --- ``carrying capacity''
+
+\begin{figure}[H]
+  \includegraphics[width=8cm]{logistic.png}
+\end{figure}
+
+\item \rnname{Harvesting growth model}: \\
+$B \coloneqq$ per capita birth rate (constant) \\
+$sN \coloneqq$ per capita death rate (linear to population) \\
+$E \coloneqq$ harvest rate \\
+$\displaystyle \frac{dN}{dt}=(B-sN)N - E = BN - sN^2 - E$ \\
+Solve $-sN^2+BN-E=0$ for equilibrium solutions \\
+\hspace{3em} $\implies \beta_1 < \beta_2 < \frac{B}{s}$, $\beta_1 + \beta_2 = \frac{B}{s}$ and $\beta_1 \beta_2 = \frac{E}{s}$ \\
+$B^2-4sE>0 \implies \frac{B^2}{4s}>E \implies$ two equilibriums \\
+\begin{figure}[H]
+  \includegraphics[width=8cm]{twosoln.png}
+\end{figure}
+\hspace{5em} $\beta_2$ is stable but not $\beta_1$ \\
+$B^2-4sE=0 \implies \frac{B^2}{4s}=E \implies$ one equilibrium \\
+\begin{figure}[H]
+  \includegraphics[width=8cm]{onesoln.png}
+\end{figure}
+\hspace{3em} $\implies \beta = \frac{B}{2s}$ \\
+$B^2-4sE<0 \implies \frac{B^2}{4s}<E \implies$ no equilibrium
+\begin{figure}[H]
+  \includegraphics[width=8cm]{nosoln.png}
+\end{figure}
+\end{flatitemize}
+
+\end{multicols*}
+\end{document}
