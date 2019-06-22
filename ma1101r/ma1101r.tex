@@ -1,0 +1,381 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=0.3cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+
+\setlength{\columnseprule}{0.4pt}
+
+\newcommand{\rntopic}[1]{\vspace{-2.0em}\subsection*{#1}\vspace{-1.0em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.5cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\posints}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.2cm,itemsep=-0.3em}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\footnotesize
+%\tiny
+%\setstretch{0.4}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{4}
+
+\raggedright
+
+\rntopic{Sys. of Linear Eqns}
+
+
+\begin{flatitemize}
+\item \rnname{Row equivalence (Defn 1.2.6, Theorem 1.2.7)}: Two augmented matrices are row equivalent $\implies$ one can be obtained from the other by a series of \textbf{elementary row operations}. \\ Row equivalent $\implies$ same set of solutions.
+\item \rnname{Row-echelon form Property 1 (Defn 1.3.1) }: If there are any rows of entirely 0s, they are grouped together at the bottom. \\
+\item \rnname{Row-echelon form Property 2 (Defn 1.3.1)}: In any two successive rows that do not consist entirely of zeros, the first nonzero number in the lower row occurs farther to the right than the first nonzero number in the higher row.\\
+
+\item \rnname{Pivot column}: A column containing a pivot point is called a pivot column. Pivot point = first non-zero element in row-echelon form.
+\item \rnname{RREF Property 3 (Defn 1.3.1)}: The leading entry of ever non-zero entry is 1.\\
+
+\item \rnname{RREF Property 4 (Defn 1.3.1)}: In every pivot column (pivot column only), except the pivot point, all other numbers are zero.\\
+
+
+\item \rnname{Unknowns}: In transforming into row-echelon form, you \textbf{cannot multiply a row by 0 or 1/0, or add 1/0 times of a row to another row}. You can, however, add 0 times of a row to another row.\\
+$\left[
+\begin{array}{@{}ccc|c@{}}
+a & 1 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+\end{array}
+\right]$ \\
+Cannot simply add $-\frac{1}{a}$ times of $R_{1}$ to $R_{2}$.\\Split cases $a=0$ and $a\neq0$.
+
+\end{flatitemize}
+
+\rntopic{Matrices}
+
+\begin{flatitemize}
+
+\item \rnname{$A_{m \times n}$}: m by n matrix. m rows and n columns. A(i,j) = $i^{th}$ row, $j^{th}$ column. \\
+A = 
+$\begin{bmatrix}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33} \\
+\end{bmatrix}$
+\item \rnname{Square Matrix}: n by n matrix. 
+\item \rnname{Diagonal Matrix}: Square matrix with non-diagonal entries all 0.
+\item \rnname{Zero Matrix}: Every element is 0. Need not be square matrix. Can write as \textbf{$0_{m \times n}$}.
+\item \rnname{Symmetric Matrix}: $a_{ij}$ = $a_{ji}$.
+
+\item \rnname{Basic Properties (Theorem 2.2.22)}:\\
+1. $(A^{T})^{T} = A$\\
+2. If size(A) = size(B), $(A+B)^T = A^T + B^T$\\
+3. If c is a scalar, $(cA)^T = cA^T$\\
+4. Let A = m $\times$ n, B = n $\times$ p, $(AB)^T = B^T A^T$. Proof: size is the same m $\times$ p, each i,j element of $(AB)^T = B^T A^T$
+\item \rnname{Inverses (Defn 2.3.2)}:\\
+1. Only for square matrices. AB = BA = I.\\
+2. A matrix is called singular if it has no inverse.\\
+3. (Theorem 2.3.5) Inverses are unique. B and C are inverses of A $\implies$ B = C.\\
+4. (Cancellation law Remark 2.3.4) If A is invertible, then: Let $B_{1}$ and $B_{2}$ be and m x n matrices such that $AB_{1}$ = $AB_{2}$. Then $B_{1}$ = $B_{2}$ 
+
+\item \rnname{Inverses (Theorem 2.3.9)}:\\
+Let A and B be 2 invertible matrices, c = non-zero scalar\\
+1. cA is invertible. $(cA)^{-1} = \frac{1}{c}A^{-1}$\\
+2. $A^T$ is invertible. $(A^T)^{-1}$ = $(A^{-1})^{T}$\\
+3. $A^{-1}$ is invertible. $(A^{-1})^{-1}$ = A.\\
+4. $AB$ is invertible. $(AB)^{-1}$ = $B^{-1} A^{-1}$;
+5. (Remark 2.3.10) If $A_{1}, A_{2} ... A_{k}$ are invertible matrices, then $A_{1}A_{2}...A_{k}$ is invertible and $(A_{1}A_{2}...A_{k})^{-1}$ = $(A_{k})^{-1}...(A_{2})^{-1}(A_{1})^{-1}$
+
+\item \rnname{Power of square matrices (Defn 2.3.11)}: $A^{-n} = (A^{-1})^n = A^{-1}A^{-1}...A^{-1}$
+\item \rnname{Remark 2.3.13)}: Let A be an invertible matrix.\\
+1. $A^rA^s = A^{r+s}$ \\
+2. $A^n$ is invertible and $(A^n)^{-1} = (A^{-1})^n$
+
+\item \rnname{Elementary Matrices (Defn 2.4.3}: Elementary Matrix: Obtainable from an Identity Matrix by performing a single elementary row operation. \textbf{All elementary matrices are invertible}.
+
+\item \rnname{Inverses (Theorem 2.4.7)}:\\ Let A be a square matrix. The follow statements are equivalent:\\
+1. A is invertible.\\
+2. The linear system Ax = 0 has only the trivial solution. \\
+3. The RREF of A is identity matrix.\\
+4. A can be expressed as a product of elementary matrices. \\
+5. (Theorem 2.5.19) det(A) $\neq 0$. [The converse is true: det(A) $ = 0 \leftrightarrow$ A is singular] \\
+6. (Theorem 3.6.11) The rows and cols of A form a basis for $\mathbb{R}^n$.
+7. (Remark 4.2.5.2) rank(A) = n.\\
+8. (Theorem 6.1.8) 0 is not an eigenvalue ($\lambda$) of A.
+
+\item \rnname{Finding Inverses (Discussion 2.4.8)}:\\ Construct n x 2n matrix (A|I). Then run Gauss-Jordan Elimination on the entire n x 2n matrix. Left side will become I. Right side will become $A^{-1}$.\\
+
+\item \rnname{Existence of inverse(Remark 2.4.10)}: If the row echelon form of A has at least 1 zero-row, A is singular. 
+\item \rnname{Singular Matrices (Theorem 2.4.14)}: If A is singular, then both AB and BA are singular. 
+
+
+\end{flatitemize}
+
+\rntopic{Determinants}
+
+\begin{flatitemize}
+\item \rnname{Determinants (Remark 2.5.2)}:\\
+Let A = $(a_{ij})$ be an n $\times$ n matrix.
+Let M = an (n-1) x (n-1) matrix obtained from deleting the $i^(th)$ row and $j^(th)$ column from A.
+Let $A_{ij}$ be the (i,j)-cofactor of $A = (-1)^{i+j}det(M_{ij})$.
+Determinant of A = $a_{11}A{11} + a_{12}A{12} + ... + a_{1n}A{1n}$. \\
+Basically, to calculate determinant, cover up the ith row and jth column. Multiply $a_{ij}$ to the determinant of the resultant, smaller, matrix. Alternate + and -. (1,1) is plus, (1,2) is minus. (2,1) is minus too. Do that for every j in a row, or for every i in a column, or for all entries in a diagonal for sq matrix.
+
+\item \rnname{Determinant for 2x2 matrix}
+$\begin{bmatrix}
+    a & b \\
+    c & d \\
+\end{bmatrix}$: $ad-bc$.
+\item \rnname{Determinant for 3x3 matrix}
+$\begin{bmatrix}
+	a & b & c \\
+    d & e & f \\
+    g & h & i \\
+\end{bmatrix}$: $aei + bfg + cdh - ceg - afh - bdi$
+\item \rnname{Determinant for transposed matrix}: If A is a square matrix, then det($A^T$) = det(A).
+\item \rnname{Determinant for identical rows or columns in matrix}
+$\begin{bmatrix}
+    1 & 2 & 4 \\
+    -1 & 10 & 6 \\
+    1 & 2 & 4
+\end{bmatrix}$: 0.\\
+Because I can do elementary row operation to cancel out the identical row/column. Then take determinant w.r.t that row.
+
+\item \rnname{Determinant for elementary row operations}: 
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{Untitled.png}
+\end{figure}
+\vspace{-1.5em}
+
+\item \rnname{Scalar Multiplication (Theorem 2.5.22.1)}: If A is a square matrix and c is a scalar, then $det(cA) = c^ndet(A)$
+\item \rnname{Matrix Multiplication (Theorem 2.5.22.2)}: If A, B are square matrices, then $det(AB) = det(A) * det(B)$. Proof: consider A being singular and invertible separately. A is singular $\implies$ AB is also singular, det = 0. A is invertible $\implies$ det(AB) = det(E1E2...EkB) = det(E1)det(E2)...det(Ek)B = det(E1...Ek)det(B) = det(A)det(B).
+\item \rnname{Invertible Matrices (Theorem 2.5.22.3)}: If A is invertible, $det(A^{-1}) = \frac{1}{det(A)}$
+
+\item \rnname{Triangular Matrices (Theorem 2.5.8)}:
+$det(\begin{bmatrix}
+	a_{11} & a_{12} & ... & a_{1n} \\
+    0      & a_{22} & ... & a_{2n} \\
+    :      &   ...    & a_{ii} & : \\
+    0      &   ...    & 0   & a_{nn} 
+\end{bmatrix}) = a_{11}*a_{22}* ... * a_{ii} * ... * a_{nn}$
+
+\end{flatitemize}
+
+
+\rntopic{Adjoints}
+
+\begin{flatitemize}
+\item \rnname{Adjoints (Definition 2.5.24)}: Let A be a square matrix of order n.\\
+adj(A) = 
+$\begin{bmatrix}
+    A_{11} & A_{12} & ... & A_{1n} \\
+    A_{21} & A_{22} & ... & A_{2n} \\
+    : & : & : & : \\
+    A_{n1} & A_{n2} & ... & A_{nn}
+\end{bmatrix} ^T = 
+\begin{bmatrix}
+    A_{11} & A_{21} & ... & A_{n1} \\
+    A_{12} & A_{22} & ... & A_{n2} \\
+    : & : & : & : \\
+    A_{1n} & A_{2n} & ... & A_{nn}
+\end{bmatrix}
+$\\where $A_{ij}$ is the (i,j)-cofactor of A. 
+\item \rnname{Adjoint (Theorem 2.5.25)}: If A is invertible, then $A^{-1} = \frac{1}{det(A)} adj(A)$. (Note: Not practical to calculate.)
+\item $A*adj(A)$ = $det(A)*I$ (regardless if A is invertible or not)
+\item \rnname{Cramer's Rule (Theorem 2.5.27)}: Suppose Ax = b is a linear system. 
+Let $A_{i}$ be the n x n matrix obtained from A by replacing the i-th column of A by b, i.e. A = $
+\begin{bmatrix}
+    a_{11} & ... & a_{1j} & b1 & a_{1k} & ... & a_{1n} \\
+    a_{21} & ... & a_{2j} & b2 & a_{2k} & ... & a_{2n} \\
+    :      & ... & :      & :  & :      & :   & : \\
+    a_{n1} & ... & a_{nj} & bn & a_{nk} & ... & a_{nn}
+\end{bmatrix}
+$\\
+$ x = \frac{1}{det(A)}
+\begin{bmatrix}
+	det(A1)\\
+    det(A2)\\
+    ...
+    det(An)
+\end{bmatrix}
+$
+i.e. $ x1 = \frac{1}{det(A)} det(A1), x2 = \frac{1}{det(A)} det(A2) $ ...
+\end{flatitemize}
+
+\rntopic{Vector Spaces}
+
+\begin{flatitemize}
+\item \rnname{Linear Combination}: Given U = $\left\lbrace u_{1}, u_{2} ... \right\rbrace$, vector v is a linear combination of U if v = $ c_{1}u_{1} + c_{2}u_{2} + ...$
+\item \rnname{Linear Span}: Given U = $\left\lbrace u_{1}, u_{2} ... \right\rbrace$, span(U) = set of all linear combinations that can be made with $\left\lbrace u_{1}, u_{2} ... \right\rbrace $
+\item \rnname{When span(S) = $R^n$ (Discussion 3.2.5)}: Given A of size $m \times n$, if the REF of A has no zero row, the system is always consistent. $span(A) = R^n$. If REF has $\geq$ 1 zero row, the system is not always consistent. $span(A) \neq R^n$ 
+\item \rnname{When span(S) = $R^n$ (Theorem 3.2.7)}: Given A of size $m \times n$, if the REF of A has no. of pivot col $k < n$, span(A) $\neq \mathbb{R}^n$. One vector cannot span $\mathbb{R}^2. \leq$ 2 vectors cannot span $\mathbb{R}^3$. 
+\item \rnname{Theorem 3.2.9}: Let S = $\left\lbrace u_{1}, u_{2} ... \right\rbrace \subseteq \mathbb{R}^n$.\\
+1. 0 $\in$ span(S).\\
+2. For any $\left\lbrace v_{1}, v_{2} ... \right\rbrace$, if $\left\lbrace v_{1}, v_{2} ... \right\rbrace \in $ span(S), $\left\lbrace c_{1}v_{1}, c_{2}v_{2} ... \right\rbrace \in $ span(S) for any $c_{1} ... c_{n}$
+\item \rnname{When $span(S_{1}) \subseteq span(S_{2})$ (Theorem 3.2.10)}: $span(S_{1}) = \left\lbrace u_{1}, u_{2} ... \right\rbrace \subseteq span(S_{2} = \left\lbrace v_{1}, v_{2} ... \right\rbrace) \leftrightarrow $ each $u_{i}$ is a linear combination of $ \left\lbrace v_{1}, v_{2} ... \right\rbrace $
+
+\item \rnname{Span and Subspace}: Let V be a subset of $\mathbb{R}^n$. V is a subspace of $\mathbb{R}^n$ if V = span(S) for some $S = \left\lbrace v_{1}, v_{2} ... \right\rbrace$. We also say S spans V. 
+\item \rnname{Subspace}: Let V = subspace of $ \mathbb{R}^n$.\\
+1. 0 $\in$ V.\\
+2. For any $\left\lbrace v_{1}, v_{2} ... \right\rbrace$, if $\left\lbrace v_{1}, v_{2} ... \right\rbrace \in $ V, $\left\lbrace c_{1}v_{1}, c_{2}v_{2} ... \right\rbrace \in $ V for any $c_{1} ... c_{n}$
+
+\item \rnname{Linear Independence (Defn 3.4.2)}: Let S =  $\left\lbrace v_{1}, v_{2} ... \right\rbrace$. If $\left\lbrace c_{1}v_{1}, c_{2}v_{2} ... \right\rbrace = 0 $ only has the trivial solution $ c_{1} = 0, c_{2} = 0 ... $, then S is linearly independent. The converse is true.
+\item \rnname{Linear Independence (Theorem 3.4.4)}: Let S =  $\left\lbrace v_{1}, v_{2} ... \right\rbrace$. S is linearly independent if and only if no vector in S can be written as a linear combination of the other vectors in S. The converse is true. This also implies that there is no redundant vector.
+\item \rnname{Bases}: Let S be a subset of V. S is a basis for V if \\
+1. S is linearly independent\\
+2. S spans V\\
+3. $|S| = k = dim(V)$\\
+Remark: A basis for V is the set of the smallest size that can span V.
+\item \rnname{Coordinate Systems}: Let S = $\left\lbrace v_{1}, v_{2} ... \right\rbrace$ be a basis for V. Any vector $v \in V$ can be expressed uniquely in the form $v = c_{1}v_{1} + c_{2}v_{2} ... $. So we can write $(v)_{s} = \left(c_{1}, c_{2}, ...\right)$. This is the coordinate vector of v relative to S.
+\item \rnname{Remark 3.5.10}: Let S be a basis for V.\\
+1. For any $u,v \in V$, $u = v \leftrightarrow (u)_{s} = (v)_{s}$.
+\item \rnname{Theorem 3.5.11}: Let S be a basis for a vector space V where $|S| = k$. Let $\left\lbrace v_{1}, v_{2} ... \right\rbrace \in V$.\\
+1. $\left\lbrace v_{1}, v_{2} ... \right\rbrace$ are linearly independent vectors $\leftrightarrow$ $\left\lbrace (v_{1})_{s}, (v_{2})_{s} ... \right\rbrace$ are linearly independent vectors in $\mathbb{R}^{k}$. Same for linearly dependent.\\
+2. span$\left\lbrace v_{1}, v_{2} ... \right\rbrace = V \leftrightarrow$ span$\left\lbrace (v_{1})_{s}, (v_{2})_{s} ... \right\rbrace = \mathbb{R}^k$
+\item \rnname{Dimension of bases (Theorem 3.6.1)}: Let V be a vector space with a basis of k vectors. \\1. Any subset of V with > k vectors is linearly dependent.\\
+2. Any subset of V with less than k vectors cannot span V.
+\item \rnname{Determine dimension}: Take REF, count number of non-pivot columns. 
+\item \rnname{Find transition matrix}: Let P be transition matrix from S to T, i.e. T = PS.
+To find P, write \\
+$\begin{bmatrix} v_{1} & v_{2} & ... & u_{1} & u{2} & ... \end{bmatrix}$. Do RREF ("find inverse"). Obtain $u_{1} = a_{11}v_{1} + a_{12}v_{2} + ...$\\
+$u_{2} = a_{12}v_{1} + a_{12}v_{2} + ...$\\
+$a_{11}...$ form P. 
+P is invertible. $P^{-1}$ is the transition matrix from T to S.
+\item \rnname{Col spaces}: Given matrix A, write A as $\begin{bmatrix} a_{1} & a_{2} & ... & a_{n}\end{bmatrix}$. Column space of A = span$\lbrace a_{1}, a_{2}, ..., a_{n}\rbrace$
+\item \rnname{Row spaces}: Given matrix A, write A as $\begin{bmatrix} a_{1} & a_{2} & ... & a_{n}\end{bmatrix}^{T}$. Row space of A = span$\lbrace a_{1}, a_{2}, ..., a_{n}\rbrace$
+\item \rnname{Col spaces}: Given matrix A, write A as $\begin{bmatrix} a_{1} & a_{2} & ... & a_{n}\end{bmatrix}$. Column space of A = span$\lbrace a_{1}, a_{2}, ..., a_{n}\rbrace$
+\item \rnname{Row spaces (Theorem 4.1.7)}: Each of the elementary row operations (kR, R1 $\leftrightarrow$ R2, R1 - R2) preserve the row space of a matrix.
+\item \rnname{Col spaces (Discussion 4.1.10)}: However, even if 2 matrices are row-equivalent, they might have different column space.
+\item \rnname{Finding bases for row space (Remark 4.1.9)}: Given matrix A, take the REF. Whichever rows that are not empty in the REF (i.e. 0s) form the basis of the row space of A.
+\item \rnname{Finding bases for col space (Remark 4.1.9)}: Given matrix A, take the REF. Note the col number of the pivot columns. The corresponding col from A form the basis of the col space of A.
+\item \rnname{Extending bases (Example 4.1.14.2)}: Given S = set of m linearly independent vectors, extend S to a basis for $\mathbb{R}^n$. Solution: use the column vector method, identify the non-pivot columns, say col 3 and 5. Then simply add vectors $\left(0,0,x,*,*\right)$ and $\left(0,0,0,0,y\right)$. Because in the original S, these cols are non-pivot, adding these new vectors extend S to a basis of n vectors.
+\item \rnname{Linear Systems (Theorem 4.1.16)}: A linear system $Ax = b$ is consistent $\leftrightarrow \exists u \in \mathbb{R}^n$ such that $Au = b \leftrightarrow b \in span \left\lbrace c_{1}, c_{2}, ..., c_{n} \right\rbrace = col space of A$. \\
+(Theorem 4.3.6): A consistent linear system Ax = b has only one solution $\leftrightarrow$ the nullspace of A is $\left\lbrace 0 \right\rbrace$.
+\item \rnname{Dimension of a matrix (Thm 4.2.1, Def 4.2.3)}: dim of row space of $m * n$ matrix A = dim of its column space = rank $\leq$ min(m,n).
+\item \rnname{Rank of Square Matrix (Definition 4.2.3)}: Rank(A) = full rank if rank(A) = $min(m,n)$.\\ Square matrix A is of full rank $\leftrightarrow det(A) \neq 0$
+\item \rnname{Consistent linear system (again) (Remark 4.2.6)}: A linear system $Ax = b$ is consistent $\leftrightarrow$ A and b have the same rank.
+\item \rnname{Rank of product of matrices (Theorem 4.2.8)}: Let A = $m \times n$ and B = $n \times p$. Then rank(AB) $\leq$ min(rank(A), rank(B)).
+\item \rnname{Nullspaces}: Nullspace of A is solution space of Ax = 0.
+\item \rnname{Nullity}: Nullity of A is dim(nullspace of A).
+\item \rnname{Dimension Theorem for matrices (Theorem 4.3.4)}: rank(A) + nullity(A) = number of \textbf{columns} of A.
+\item \rnname{$rank(A)$ vs $rank(A^T)$}: $rank(A) = rank(A^T)$. 
+\end{flatitemize}
+
+\rntopic{Orthogonality}
+
+\begin{flatitemize}
+\item \rnname{Distance and angle (Discussion 5.1.1.3)}: $||u-v||^2 = ||u||^2 + ||v||^2 - 2 ||u|| ||v|| cos \theta$ \\
+$\theta = \cos^{-1}{\frac{||u||^2 + ||v||^2 - ||u-v||^2}{2 ||u|| ||v||}} = \cos^{-1}{\frac{u \cdot v}{||u|| ||v||}}$
+\item \rnname{Basic Properties (Theorem 5.1.5)}:\\
+1. $ u \cdot v = v \cdot u$\\
+2. $(u+v) \cdot w = u \cdot w + v \cdot w$\\
+3. $||cu|| = |c| ||u||$\\
+4. $u \cdot u \geq 0$. $u \cdot u = 0 \leftrightarrow u = 0$\\
+\item \rnname{Orthogonal}: Two vectors u and v are orthogonal if $u \cdot v = 0$ (i.e. perpendicular)
+\item \rnname{Orthogonal set}: A set of vectors is called an orthogonal set if every pair of vectors are orthogonal.
+\item \rnname{Orthonormal set}: A set of vectors is called an orthonormal set if every pair of vectors are orthogonal AND every vector is a unit vector. The standard basis E is a orthonormal set.
+\item \rnname{Linear Independence (Theorem 5.2.4)}: An orthogonal set of nonzero vectors $\implies$ linearly independent.
+\item \rnname{Orthogonal basis}: A basis S for a vector space V is called an orthogonal basis if S is orthogonal. (Similar for orthonormal)
+\item \rnname{Projection}: Let $\left\lbrace u_{1}, u_{2} ... u_{k}\right\rbrace$ be an \textbf{orthogonal} basis for V.\\
+For any $w \in \mathbb{R}^n$, projection of w onto V is $\frac{w \cdot u_{1}}{u_{1}\cdot u_{1}}u_{1} + \frac{w \cdot u_{2}}{u_{2}\cdot u_{2}}u_{2} + ... + \frac{w \cdot u_{k}}{u_{k}\cdot u_{k}}u_{k}$
+\item \rnname{Gram-Schmidt Process}: Convert basis $\rightarrow$ orthogonal basis. Let $\left\lbrace u_{1}, u_{2} ... u_{k}\right\rbrace$ be a basis for V. \\
+Let $v_{1} = u_{1}.$\\
+Let $v_{2} = u_{2} - \frac{u_{2} \cdot v_{1}}{v_{1}\cdot v_{1}}u_{1}$\\
+Let $v_{3} = u_{3} - \frac{u_{3} \cdot v_{1}}{v_{1}\cdot v_{1}}v_{1} - \frac{u_{3} \cdot v_{2}}{v_{2}\cdot v_{2}}v_{2}$\\
+...\\
+Then $\left\lbrace v_{1}, v_{2} ...\right\rbrace$ is an orthogonal basis for V. Divide each element by $||V_{i}||$ to get orthonormal basis.
+
+\item \rnname{Least Square Solution}: Given $Ax = b$, x = $[x y]^{T}$, x is least sq soln if and only if Ax = (projection of b onto col space of A).
+\item \rnname{Least Square Solution}: \textbf{u is a least square soln to $Ax=b \leftrightarrow$ u is a solution to $A^TAx = A^Tb$}
+\item \rnname{Orthogonal Square Matrices (Defn 5.4.3)}: Let A be a square matrix of order n. The following statements are equivalent.\\
+1. A is orthogonal.\\
+2. $A^{-1} = A^T; AA^T = I$ \\
+3. Rows of A form orthonormal basis for $\mathbb{R}^n$.\\
+4. Columns of A form orthonormal basis for $\mathbb{R}^n$.\\
+\item \rnname{Transition matrices (Theorem 5.4.7)}: Let S and T be 2 orthonormal bases, and P be the transition matrix from S to T.\\
+1. P is orthogonal, and therefore \\
+2. $P^T = P^{-1}$ is the transition matrix from T to S.
+\end{flatitemize}
+
+\rntopic{Diagonalisation}
+
+\begin{flatitemize}
+\item \rnname{Eigenvalues and Eigenvectors}: Let A be a square matrix of order n. u is an eigenvector of A if $Au = \lambda u$ for some scalar $\lambda$. $\lambda$ is the eigenvalue of A, and u is the eigenvector of A associated with $\lambda$.
+\item \rnname{Finding eigenvalues}: Characteristic eqn of A: $det(\lambda I - A) = 0$. Solve for $\lambda$.
+\item \rnname{Eigenvalues for triangular matrix (Thm 6.1.9)}: It is just the diagonals. Note: cannot take shortcut and reduce from normal matrix to triangular matrix when calculating eigenvalue!
+\item \rnname{Eigenspace}: Is the solution of the linear system $\left(\lambda I - A\right)x = 0$ for each lambda.
+\item \rnname{Diagonalisation}: Square matrix A is diagonalisable if $\exists$ invertible matrix P such that $P^{-1}AP$ is a diagonal matrix. This happens if and only if A has n linearly independent eigenvectors. Equivalently, this happens if and only if A has n distinct eigenvalues $\lambda$.
+\item \rnname{Diagonalise a matrix (Algorithm 6.2.4)}: Let A be a n x n square matrix.\\
+1. Find all distinct eigenvalues $\lambda_{1}, \lambda_{2}...$ by solving $det(\lambda I - A) = 0 $.\\
+2. For each eigenvalue $\lambda$, find a basis $S_{\lambda}$ for the eigenspace $E_{\lambda}$.\\
+3. Let S = $S_{\lambda_{1}} \bigcup S_{\lambda_{2}} \bigcup S_{\lambda_{3}} ...$\\
+3a: if $|S| < n$, then A is not diagonalisable.\\
+3b: if $|S| = n$, then A is diagonalisable and P = S is an invertible matrix.
+\item \rnname{Orthogonally diagonalise a matrix}: Repeat the same steps as above, but in step 2, in addition to finding bases, use the Gram-Schmidt Process to transform $S_{lambda}$ to an orthonormal basis.\\
+Only orthogonally diagonalisable if A is symmetric.
+\end{flatitemize}
+
+\rntopic{Linear Transformation}
+
+\begin{flatitemize}
+\item \rnname{Linear Transformation, basic properties}:\\
+1. T(0) = 0. \\
+2. If $u_{1}, u_{2} ... \in \mathbb{R}^n$, for constants $c_{1}, c_{2} ...$, $T(c_{1}u_{1} + c_{2}u_{2} + ...) = c_{1}T(u_{1}) + c_{2}T(u_{2}) + ...$
+\item \rnname{Bases (Discussion 7.1.6)}: Let $\left\lbrace c_{1}v_{1}, c_{2}v_{2} ... \right\rbrace$ be a basis for $\mathbb{R}^n$.
+Then, for any $v \in \mathbb{R}^n$, we can write $v = c_{1}u_{1} + c_{2}u_{2} + ...$. Then, T(v) can be completely expressed in terms of u, i.e. the image of T(v) is completely determined by images $T(u_{1}), T(u_{2}) ...$
+\item \rnname{Standard Matrices}: Given a linear transformation, for e.g.
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{lintrfm.png}
+\end{figure}
+\vspace{-1.5em}
+Note that (1,1,1), (0,1,1), (2, 0, -1) form a basis for $\mathbb{R}^3$. Hence the image of any $v \in \mathbb{R}^3$ is completely determined by these 3 vectors. So we can first solve generically the following:
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{lintrfm2.png}
+\end{figure}
+\vspace{-1.5em}
+Now, any (x,y,z) can be easily transformed.
+Furthermore, we can use elementary matrices to make it even easier. 
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{lintrfm3.png}
+\end{figure}
+\vspace{-3em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{lintrfm4.png}
+\end{figure}
+\vspace{-1.5em}
+etc. We can then derive the standard matrix.
+\item \rnname{Composition}: If S and T are linear transformations, $T\circ S$ is also a linear transformation. 
+\item \rnname{Range, Rank}: Let T be a linear transformation, A be standard matrix for T. $rank(T) = dim(Range(T)) = dim(col space of A) = rank(A)$.
+\item \rnname{Kernel}: Given $T: \mathbb{R}^n \rightarrow \mathbb{R}^m, Ker(T) = $ set of vectors whose image is 0. \\
+Let A be standard matrix for T. nullity(T) = dim(Ker(T)) = dim(nullSpace of A) nullity(A).
+\item \rnname{Dimension Theorem for Lin. Trnsfm}: Let T be a linear transformation, and A is its m x n standard matrix. rank(T) + nullity(T) = rank(A) + nullity(A) = no. col of A = n.
+
+\end{flatitemize}
+\end{multicols*}
+\end{document}
