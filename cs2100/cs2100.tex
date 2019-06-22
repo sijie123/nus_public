@@ -1,0 +1,489 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=0.7cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\setlength{\columnseprule}{0.4pt}
+
+\newcommand{\rntopic}[1]{\vspace{-2.0em}\subsection*{#1}\vspace{-1.0em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.3cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\posints}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.2cm,itemsep=-0.1em}
+\setlist[itemize,1]{itemsep=-0.1em,leftmargin=0.1cm,label=-}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\footnotesize
+%\tiny
+\setstretch{0.4}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{4}
+
+\raggedright
+\rntopic{C Programming}
+\iffalse
+Op Precedence for Boolean Expressions
+\begin{tabular}{ | c | c | c | } \hline
+ Type & Operator & Assoc \\ \hline
+ Pri. Exp Op & () $[]$ $.$ $->$ expr++ expr$--$ & L to R\\ \hline
+ Unary Op & \begin{tabular}{@{}c@{}}* \& + - ! $~$ ++expr $--$expr \\ (typecast) sizeof \end{tabular} & R to L \\  \hline
+ Binary Op & * / \% & L to R \\ \hline
+ & + - & L to R \\ \hline
+ & Bitshift $<<$ $>>$ & L to R \\ \hline
+ & $<$ $>$ $<=$ $>=$ & L to R \\ \hline
+ & == != & L to R \\ \hline
+ & Bitwise \&, then $\wedge$ then $|$ & L to R \\ \hline
+ & \&\& & L to R \\ \hline
+ & $||$ & L to R \\ \hline
+ Ternary Op & ?: & L to R \\ \hline
+ Assignment Op& = += -= *= /= \%= != & R to L \\ \hline
+ Comma & , & L to R \\ \hline
+\end{tabular}
+\fi
+\vspace{-1.1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{cpppriority.png}
+\end{figure}
+\vspace{-0.5em}
+Literal Values
+\begin{tabular} { c c c c}
+Base & Prefix & Example \\ \hline
+Hex & 0x & 0xDEAD, 0x4b \\ \hline
+Octal & 0 & 020 is 32, 090 is invalid \\ \hline
+Bin & 0b & 0b1001, 0b100001 \\ \hline
+\end{tabular} \\
+Impt Values
+\begin{tabular} { c c c c }
+Item & Dec & Hex & Binary \\
+'0' & 48 & 30 & 00110000 \\
+'A' & 65 & 41 & 01000001 \\
+'a' & 97 & 61 & 01100001 \\
+$2^{15}-1$ & 32\,767 & 7FFF & \\
+$2^{16}-1$ & 65\,535 & FFFF & \\
+$2^{31}-1$ & 2\,147\,483\,647 & 7FFFFFFF & \\
+$2^{32}-1$ & 4\,294\,967\,295 & FFFFFFFF & \\
+
+\end{tabular}
+\iffalse
+Struct
+\vspace{-1.1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{struct_syntax.PNG}
+\end{figure}
+\fi
+
+\rntopic{Binary Arithmetic}
+
+
+\begin{flatitemize}
+\item \rnname{1's (Diminished Radix) complement}: To negate, just flip every single bit. E.g. -11 = -01011 = 10100. Formula: Given X with N bits, $-X = 2^N -X -1$. 
+\item \rnname{2's complement}: To negate, flips every single bit, then +1 E.g. -11 = -01011 = 10101. Formula: Given X with N bits, $-X = 2^N -X$. 
+\item \rnname{Generalised form $(r-1)$'s complement of $N_{(Base-R)}$}: $r^n - r^{-m} -N$ where $n$ is number of digits and $m$ is number of fractional digits. To get r's complement: +1 to LSB, even for fractions. 
+\item \rnname{Bias/Excess Rep:} Excess-$X$ means representation of $X$ is taken to be value $0$. Eg: $1001$ in Excess-$4$ is $1$.
+\item \rnname{Addition:} Perform binary addition. For 1's complement, add the carry-out of MSB to LSB. For 2's complement, ignore carry-out of MSB. If A and B have the same sign but result has opposite sign, overflow occurred. Additionally for 2's complement, if carry-in to MSB $\neq$ carry-out of MSB, overflow has occurred.
+\item \rnname{Powers of 2}: \\
+\begin{tabular}{|c|c|c|c|}  \hline
+Power & Value & Power & Value \\ \hline
+-1 & 0.5       & -6 & 0.015625  \\ \hline
+-2 & 0.25      & -7 & 0.0078125 \\ \hline
+-3 & 0.125     & -8 & 0.00390625 \\ \hline
+-4 & 0.0625    & -9 & 0.001953125 \\ \hline
+-5 & 0.03125   & -10 & 0.0009765625 \\ \hline
+\end{tabular}
+\item \rnname{Hexa to Binary}: \\
+\begin{tabular}{|c|c|c|c|c|c|c|c|}  \hline
+H & B & H & B & H & B & H & B \\ \hline
+0 & 0000 & 4 & 0100 & 8 & 1000 & C & 1100 \\ \hline
+1 & 0001 & 5 & 0101 & 9 & 1001 & D & 1101 \\ \hline
+2 & 0010 & 6 & 0110 & A & 1010 & E & 1110 \\ \hline
+3 & 0011 & 7 & 0111 & B & 1011 & F & 1111 \\ \hline
+\end{tabular}
+\item \rnname{Sign extension for fixed-point numbers}: \\
+1's complement: extend sign bit to both left and right \\
+2's complement: extend sign bit to left and zeroes to right
+\item \rnname{IEEE754 Floating Point}: 
+\begin{tabular}{ | c | c | c | c | } \hline
+Type & Sign & Exponent & Mantissa \\ \hline
+Single & 1-bit & 8-bit (Bias-127) & 23-bit \\ \hline
+Double & 1-bit & 11-bit (Bias-1023) & 52-bit \\ \hline
+\end{tabular}
+Sign=$1$ if negative. Exponent = Bias-127 $\implies$ \\
+\begin{tabular}{| c | c | c | c |} \hline
+Excess & Decimal & Excess & Decimal \\ \hline
+0000 0000 & -127 & 1000 0000 & 1 \\ \hline
+0000 0001 & -126 & 1000 0001 & 2 \\ \hline
+0111 1110 & -1   & 1111 1110 & 127 \\ \hline
+0111 1111 & 0    & 1111 1111 & 128 \\ \hline
+\end{tabular} \\
+Mantissa = Normalised (eg 1.1110101) then take everything after decimal point. 
+\item \rnname{IEEE754 Special Values}:
+\begin{tabular}{ | c | c | c | c | } \hline
+Value & Sign & Exponent & Mantissa \\ \hline
+Norm & $\pm$ & Excess-127 & 1.xxxx \\ \hline
+Zero (0) & $\pm$ & 0 (all 0) & 0 \\ \hline
+Denorm & $\pm$ & 0 (rep. $2^{-126}$) & 0.xxxx \\ \hline
+Inf & $\pm$ & 255 (all 1) & 0 \\ \hline
+Qui NaN & NA & 255 (all 1) & $\neq 0$, MSB 1 \\ \hline
+Sig NaN & NA & 255 (all 1) & $\neq 0$, MSB 0 \\ \hline
+\end{tabular}
+
+\end{flatitemize}
+
+\rntopic{MIPS}
+
+\begin{flatitemize}
+\item \rnname{Word}: Usually $2^n$ bytes; The common unit of transfer between processor and memory; usually coincide with reg size, int size and instruction size for most architectures. 
+\item \rnname{Word Alignment}: Words are aligned in memory if they begin at a byte address that is a multiple of the number of bytes in a word. Eg: if word is 4 bytes, and address is multiple of 4, then it is word aligned.
+\item \rnname{MIPS}: Load-store register architecture. 32 registers (32bit each), each word is 32bit, memory addresses are 32bit.
+\item \rnname{Byte Addressing}: MIPS uses byte addresses, so consec words differ by 4.
+\item \rnname{R-format}: $rs$ source, $rt$ 2nd source, $rd$ receives results, $shamt$ shift amount (to be 0 for non-shift instructions)
+\item \rnname{I-format}: $rs$ source, $rt$ receives result, $imm$ is 16bit \textbf{signed} integer
+\item \rnname{Branching}: If branch is \textbf{Not Taken}, $PC = PC+4$. If branch is \textbf{Taken}, $PC = (PC + 4) + (imm*4)$ $imm$ can be positive or negative
+\item \rnname{J-format}: Add 2 0s to the right of the 26bit immediate value (as all instr are multiple of 4). Preserve the first 4 bits of (PC+4), replace the remaining 28 bits with the shifted immediate value. Max jump range is 256MB. Use $jr$ if jumping across the boundary.
+\end{flatitemize}
+
+
+\rntopic{Inst Set Arch (ISA)}
+\begin{flatitemize}
+\item \rnname{Complex Instruction Set Computer (CISC)}: \\
+Example: x86-32 (IA32) \\
+Single instruction performs complex operation. VAX arch had an instr to multiply polynomials \\
+Smaller program size as memory was premium \\
+Complex implementation, no room for hardware optimization
+\item \rnname{Reduced Instruction Set Computer (RISC)}:  \\
+Example: MIPS, ARM \\
+Keeps the instr set small and simple, makes it easier to build/optimize hardware. \\
+Burden on software to combine simpler operations to imple high-level language statements 
+\item \rnname{Storage Architecture}:\\
+\textbf{Stack Architecture} \\
+Operands are implicitly on top of the stack. \\
+\textbf{Accumulator Architecture} \\
+One operand is implicitly in the accumulator (a special register). All results will be at the accumulator. \\
+\textbf{General-purpose register Architecture} \\
+Only explicit operands.\\
+- Register-memory architecture (one operand in memory)\\
+- Register-register (load store) architecture.\\
+\textbf{Memory-memory Architecture} \\
+All operands are in memory, no fetch and store. \\
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{ISA_storage.PNG}
+  \includegraphics[width=7cm]{ISA_storage2.PNG}
+\end{figure}
+\vspace{-2em}
+\item \rnname{Endianness}:\\
+The relative ordering of the bytes in a multiple-byte word stored in memory.\\
+\textbf{Big-endian}: Most significant byte stored in the lowest address. (Eg: MIPS)\\
+\textbf{Little-endian}: Least significant byte stored in the lowest address. (Eg: Intel 80x86)\\
+
+\iffalse
+\item \rnname{Addressing Mode}:
+
+\vspace{-2em}
+\begin{figure}[H]
+  \includegraphics[width=6cm]{ISA_addressingmode.PNG}
+\end{figure}
+\vspace{-1.5em}
+\fi
+\item \rnname{Instruction Encoding}:
+Instructions can be Fixed Length or Variable Length. \\
+We can 'extend' opcode for a subset of instructions:
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=5cm]{ISA_expandopcode.PNG}
+\end{figure}
+\vspace{-1.5em}
+\end{flatitemize}
+
+\rntopic{Datapath and Control}
+\begin{flatitemize}
+\item Collection of components that process data. Performs the arithmetic, logical and memory operations.
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{datapath_control.png}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Instruction Execution Cycle}
+\vspace{-1em}
+\begin{itemize}
+\item \textbf{Fetch}: Get instruction from memory using address from Program Counter (PC).
+\item \textbf{Decode}: Find out the operation required.
+\item \textbf{Operand Fetch}: Get the operand(s) needed for operation.
+\item \textbf{Execute}: Perform the required operation.
+\item \textbf{Result Write (Store)}: Store the result of the operation.
+\end{itemize}
+\item \rnname{MIPS Instruction Execution}: Merge Decode and Fetch - decode is simple for MIPS. Split Execute into ALU (Calculation) and Memory Access.
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{datapath_mips_example.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Control Unit}:
+Combinational logic to generate control signals.
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=6cm]{control_signals.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Arithmetic Logic Unit (ALU)}:
+Combinational logic to implement arithmetic and logical operations. Inputs 2 32bit numbers, output a 32bit result. 4bit control signal.
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=6cm]{control_ALU_signals.PNG}
+\end{figure}
+\vspace{-1.5em}
+\end{flatitemize}
+
+
+\rntopic{Boolean Algebra}
+\begin{flatitemize}
+\item \rnname{Laws}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Identity}: $A+0 = A$; $A \cdot 1 = A$
+\item \textbf{Inverse/Complement}: $A+A' = 1$; $A \cdot A' = 0$
+\item \textbf{Commutative}: $A+B=B+A$; $A \cdot B = B \cdot A$
+\item \textbf{Associative}: $A + (B+C) = (A+B) + C$; $A \cdot (B \cdot C) = (A \cdot B) \cdot C$
+\item \textbf{Distributive}: $A \cdot (B + C) = (A \cdot B) + (A \cdot C)$; $A + (B \cdot C) = (A + B) \cdot (A + C)$
+\item \textbf{Idempotency}: $X + X = X$; $X \cdot X = X$
+\item \textbf{One Element/Zero Element}: $X + 1 = 1$; $X \cdot 0 = 0$
+\item \textbf{Involution}: $(X')' = X$
+\item \textbf{Absorption}: $X + X \cdot Y = X$; $X \cdot(X + Y) = X$; $X + X' \cdot Y = X + Y$; $X \cdot (X' + Y) = X \cdot Y$
+\item \textbf{DeMorgans'}: $(X + Y)' = X' \cdot Y'$; $(X \cdot Y)' = X' + Y'$; Can be generalized to more than 2 variables.
+\item \textbf{Concensus}: $(X \cdot Y) + (X' \cdot Z) + (Y \cdot Z) = (X \cdot Y) + (X' \cdot Z)$; $(X + Y) \cdot (X' + Z) \cdot (Y + Z) = (X + Y) \cdot (X' + Z)$
+\end{itemize}
+\vspace{-0.5em}
+\item \rnname{Duality}: A boolean equation \textbf{remains valid} if all the $AND$ and $OR$ operators are interchanges and all the identity elements $0$ and $1$ are interchanged. (Eg: $(x + y + z)' = x' \cdot y' \cdot z'$ can be interchanged into $(x \cdot y \cdot z)' = x' + y' + z'$)
+
+\item \rnname{Minterm} is a product term that represents when a fn should be '1'. $m5 = x\cdot y' \cdot z$ as $5 = 0b101$
+\item \rnname{Maxterm} is a sum term that represents when a fn should be '0'. $M5 = x' + y + z'$ as $5 = 0b101$
+\item Each minterm is the \textit{complement} of the corresponding maxterm. $m5' = M5$
+\iffalse
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=5cm]{minterm_maxterm.PNG}
+\end{figure}
+\vspace{-1.5em}
+\fi
+\item \rnname{Gray Code} (reflected binary code): single bit change from one value to next.
+\end{flatitemize}
+
+\rntopic{Circuit Components}
+\begin{flatitemize}
+\item \rnname{Logic Gates}:
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{logic_gates.png}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Complete Set of Logic} are set of gates that can implement any boolean logic. $\lbrace AND, OR, NOT\rbrace$, $\lbrace NAND \rbrace$, $\lbrace NOR \rbrace$ are such complete sets.
+\item \rnname{Full Adder and Magnitude Comparator}
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=3cm]{full_adder.png}
+  \includegraphics[width=3.5cm]{magnitude_circuit.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Decoder}: Converts binary information from $n$ input lines to up to $2^n$ output lines.
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{decoder_functions.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Encoder}: Converts $2^n$ input lines to $n$ output lines (opp of decoder). In a \underline{priority} encoder, the input line with lowest number takes precedence.
+
+\item \rnname{Demultiplexer}: directs data from 1 input line to one of the $2^n$ output lines based on the select value. Identical to a decoder with enable.
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{decoder_demultiplexers.PNG}
+\end{figure}
+\vspace{-1.5em}
+
+\item \rnname{Multiplexer}: steers one of the $2^n$ input to a single output line based on a selector
+\item Decoders and Multiplexers can be combined to form larger ones.
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=3.25cm]{larger_decoders.PNG}
+  \includegraphics[width=3.25cm]{larger_multiplexers.PNG}
+\end{figure}
+\vspace{-1.5em}
+
+
+
+
+\item \rnname{Karnaugh Maps}
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Implicant}: Product term that could be used to cover minterms of the function (all $1$ or $X$)
+\item \textbf{Prime Implicant}: Product term obtained by combining the max poss number of minterms from adj sq in the map (ie: biggest grouping)
+\item \textbf{Essential PI}: A PI that includes a minterm that is not covered by any other PI. (ie: a PI that you are forced to select)
+\item \textbf{SOP}: Select PI such that all $1$ are covered.
+\item \textbf{POS}: Use K-map of inverted function (or use the zeros). Find SOP then inv it using DeMorgan's.
+\end{itemize}
+\end{flatitemize}
+\rntopic{Sequential Circuits}
+\begin{flatitemize}
+\item \textbf{Flip Flop + Excitation Table}
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=6.5cm]{flipflop_diagrams.PNG}
+  \includegraphics[width=6.5cm]{seq_excitation_table_3.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \textbf{Memory Cell}: \textbf{Static} RAM use flip-flops as the memory cells (below). \textbf{Dynamic} RAM use capacitor charges to represent data, need to be constantly refreshed.
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=3.25cm]{seq_memory_cell.PNG}
+  \includegraphics[width=3.25cm]{seq_memory_array.PNG}
+\end{figure}
+\vspace{-1.5em}
+\end{flatitemize}
+
+
+\rntopic{Pipelining}
+\begin{flatitemize}
+
+\item \rnname{MIPS Pipeline Stages}:
+
+\vspace{-0.5em}
+\begin{itemize}
+\item $IF$: Instruction Fetch
+\item $ID$: Instruction Decode and Register Read
+\item $EX$: Execute/calculate (ALU operations)
+\item $MEM$: Read/Write an operand in memory (or decide branch)
+\item $WB$: Write back to register
+\end{itemize}
+\item \rnname{Processor Performance}:
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{pipelining.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Speedup}: $Speedup_{pipe} = \frac{Time_{seq}}{Time_{pipe}}$
+\item \rnname{Ideal Speedup}: Every stage takes the same time; no pipeline overhead; num of instr much larger than num of stages; Tends to N as I gets larger
+\item \rnname{Hazards}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Structural}: Simultaneous use of a hardware resource
+\item \textbf{Data}: Data dependencies between instructions
+\item \textbf{Control}: Change in program flow
+\end{itemize}
+\vspace{-0.5em}
+\item \rnname{Read-After-Write (RAW) Hazards}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Original}: $WB \rightarrow ID$ (delay = 2)
+\item \textbf{Forwarding (non-load)}: $EX \rightarrow ID$ (delay = 0)
+\item \textbf{Forwarding (load)}: $MEM \rightarrow ID$ (delay = 1)
+\end{itemize}
+\item \rnname{Control Hazards}: Outcome known at $MEM$
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Original}: $MEM \rightarrow IF$ (delay = 3)
+\item \textbf{Early Branching}: $ID \rightarrow IF$ (delay = 1) \\
+Add hardware to compare registers in stage 2, decide branch outcome at $ID$ stage instead. However, data is req \underline{before} $ID$ stage, like in $IF$
+\item \textbf{Early Branching with RAW}: \\$add$, $beq$: $EX \rightarrow IF$ w. data fwd (delay = 1+1)\\
+$lw$, $beq$: $MEM \rightarrow IF$ w. data fwd (delay = 2+1)
+\item \textbf{Branch Prediction}: Predict not taken or taken and continue executing instead of stalling. Add hardware to flush if wrong prediction.
+\item \textbf{Delayed Branching}: Move \textbf{non-control dependent} instructions into the $X$ slots following a branch, to be exec \textbf{regardless of the branch outcome}. Program correctness must be preserved, add $nop$ if no such instr. \textit{Usually}, $X=1$ with early branching. Compiler must be smart enough to reorder. Usually, can find such instr $50\%$ of the time.
+\end{itemize}
+\end{flatitemize}
+
+\rntopic{Memory and Cache}
+\begin{flatitemize}
+\item \rnname{Hierarchy}: HDD $\rightarrow$ DRAM (main mem) $\rightarrow$ SRAM (cpu cache) $\rightarrow$ Registers
+\item \rnname{Locality}: Program accesses only a small portion of the memory address space within a small time interval
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Temporal}: Same item tends to be re-referenced
+\item \textbf{Spatial}: Nearby items will tend to be referenced 
+\end{itemize}
+\item \rnname{Avg Access Time}: $Rate_{Hit} * Time_{Hit} + (1 - Rate_{Hit}) * Time_{Miss}$
+\item \rnname{Read Misses}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Compulsory/Cold Start}: First access to a block
+\item \textbf{Conflict}: Same index gets overwritten (previously got evicted) \textbf{Only for direct and set associative}
+\item \textbf{Capacity}: Cache cannot contain all blocks needed \textbf{Only for fully associative}
+\end{itemize}
+\item \rnname{Write Policy}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Write Through}: Write data both to cache and to main memory
+\item \textbf{Write-back}: Only write to cache. Write to main memory only when cache block is replaced. Uses dirty bit to flag if the data in cache is updated.
+\end{itemize}
+\item \rnname{Write Miss Handling}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Write Allocate}: Load to cache, change in cache, actual write depend on write policy
+\item \textbf{Write Around}: Write direct to main memory
+\end{itemize}
+\item \rnname{Direct Mapped Cache}:
+\\Overhead: Valid Tag (1-bit), Tag (? bits) (+ Dirty Flag)
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{cache_direct_mapped.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{N-way Set Associative Cache}: Cache contains a number of sets, each set contains $N$ cache blocks
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{cache_set_assoc.PNG}
+  %\includegraphics[width=6cm]{cache_2_assoc.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item Rule of Thumb: A direct-mapped cache of size $N$ has about the same miss rate as a 2-way set associative cache of size $N/2$
+\item \rnname{Fully Associative Cache}: A mem block can be placed in any loc of the cache. Increase temporal locality but however, need to search all cache blocks for mem access. \textbf{No conflict miss} since data can go anywhere.
+\vspace{-1.5em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{cache_fully_assoc.PNG}
+\end{figure}
+\vspace{-1.5em}
+\vspace{-1em}
+\begin{figure}[H]
+  \includegraphics[width=7cm]{cache_summary.PNG}
+\end{figure}
+\vspace{-1.5em}
+\item \rnname{Block Size} Larger block size inc spatial locality but also inc miss penalty (inc time to fill block). If block size is too big wrt cache size, miss rate inc too.
+
+\item \rnname{Block Replacement Policy}:
+\vspace{-0.5em}
+\begin{itemize}
+\item \textbf{Least Recently Used}: Remove the block that has not been accessed the longest. (inc. temporal locality)
+
+\item \textbf{Write-back}: Only write to cache. Write to main memory only when cache block is replaced. Uses dirty bit to flag if the data in cache is updated.
+\end{itemize}
+
+\end{flatitemize}
+
+
+\end{multicols*}
+\end{document}
