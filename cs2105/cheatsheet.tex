@@ -1,0 +1,302 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=0.7cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\setlength{\columnseprule}{0.4pt}\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
+\newcommand{\rntopic}[1]{\vspace{-2.0em}\subsection*{#1}\vspace{-1.0em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.3cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\intPlus}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.2cm,itemsep=-0.1em}
+\setlist[itemize,1]{itemsep=-0.1em,leftmargin=0.1cm,label=-}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\footnotesize
+%\tiny
+\setstretch{0.4}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{4}
+
+\raggedright
+
+\rntopic{Network}
+\begin{flatitemize}
+\vspace{0.3cm}
+\item \rnname{Protocols}: Define the structure and format of messages, and actions taken upon receiving and send messages. Eg. HTTP, FTP, SMTP, TCP, RTP
+\item \rnname{Network Core}: A mesh of interconnected devices. 
+\item \rnname{Circuit Switching}: A pipe dedicated for the two parties. End to end resources dedicated to and reserved for the "call".
+\item \rnname{Packet Switching}: Message is broken in chunks and forwarded via available resources. Store-and-forward: entire packet must arrive before can be forwarded. Routing determines source-destination route.
+\item \rnname{Internet}: Uses packet switching.
+\item \rnname{Comparison: Circuit vs Packet}:
+\begin{tabular}{ | c | c | } \hline
+ Circuit & Packet \\ \hline
+ Setup Required & Setup Not Required\\ \hline
+ Guaranteed & Best effort \\  \hline
+ Resource idle & Shared\\ if unused \\ \hline
+ Straightforward & Requires routing,\\ & addressing, forwarding\\ \hline
+\end{tabular}
+\item \rnname{Network of Networks}: The Internet is a network of networks. Tier 3 ("Access ISP") connect to Tier 2 ("Regional ISP") that acts as middleman to Tier 1 ("Global ISP") which are interconnected / peered.
+\item \rnname{Packet loss}: Occurs when routers become overloaded. They have finite buffer. When it is exceeded, packets get discarded. 
+\item \rnname{4 Sources of Delay}: \\End-to-end delay consist of these 4 sources of delay:\\
+1. Processing Delay: Check packet integrity, typically msec.\\
+2. Queuing Delay: Time waiting in router congestion queue.\\
+3. Transmission Delay: Time taken for packet to be placed onto the link. = Packet Length / Link Rate\\
+4. Propagation Delay: Time taken for packet to reach recipient (at speed of light). = Distance / Speed of Light.
+\item \rnname{Throughput}: How many bits can be transmitted from end to end.
+\item \rnname{5 Layer Simplified OSI}: Application, Transport, Network, Link, Physical
+
+\end{flatitemize}
+\rntopic{Application Layer}
+\vspace{0.3cm}
+\begin{flatitemize}
+\item \rnname{Application Requirements}: Different apps have different requirements of:\\
+1. Data integrity - transactions require full integrity, video/audio streaming no need.
+2. Timing - games need data fast, normal file transfers no need so fast.
+3. Throughput - video call requires some data to be effective, file transfer can afford lower throughput.
+4. Security.
+\item \rnname{Socket}: On application $\leftrightarrow$ transport layer. App sends/receives messages to/from its socket. Socket $\neq$ port! A port (transport layer) can have multiple sockets, much alike how a mailbox can be accessed by multiple people in the same household.\\
+Can have TCP vs UDP sockets.
+
+\item \rnname{Transfer Control Protocol TCP vs User Datagram Protocol UDP}: TCP is connection oriented, reliable, has flow control (don't overwhelm recipient), and congestion control (throttle when network is slow). UDP is unreliable / has none of the above, but has less overhead and can send quickly. Use TCP or UDP depending on what services you need.
+
+\item \rnname{HTTP}: Transfers via TCP. Client-server model.
+\item \rnname{HTTP/1.0}: TCP init connection, server OK, app request file, server SEND, close.
+\item \rnname{HTTP/1.1}: Persistent. No need to re-init connection every time. Can request multiple times.
+\vspace{-1cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{http11.png}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{HTTP/1.1 Pipelining}: Adds pipelining. Allows multiple requests simultaneously over same connection. However server response is still single-threaded. One file must finish before second one can start. Saves times as no need to wait RTT for every file.
+\vspace{-1cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{http11pipeline.png}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{HTTP/2 Multiplexing}: Requests can come back in any order, even partially.
+
+\item \rnname{Domain Name System}: Translates hostname to IP address. A: Address/IP, NS: NameServer, CNAME: canonical name / alias, MX: mail exchange. DNS Runs over UDP 53.
+\item \rnname{NSLookup/Dig}: Shows all DNS configuration/mapping between hostname and IP.
+\item \rnname{Hierarchical DNS}: DNS is hierarchical. Root servers know about the .com., .org. etc. .com. knows about facebook.com. etc 
+\item \rnname{Local DNS}: Each ISP has a DNS "default name server" that acts as cache/proxy to speedup DNS query.
+\item \rnname{DNS: Iterative}: DNS is iterative. Your local DNS server makes call to root, get IP addresses of .com, then you make another call to .com etc. Not recursive.
+
+\item \rnname{TCP socket}: is connection oriented, like a constant stream from socket.
+\item \rnname{UDP socket}: not connection oriented, messages are just independent packets that arrive. 
+\end{flatitemize}
+
+\rntopic{Reliable Communication}
+\begin{flatitemize}
+\item \rnname{Sources of data loss}: Corrupt packets, Dropped packets, Re-ordered packets, Delivery after arbitrary long delay. Need to ensure delivery and correctness, and in the same order.
+\item \rnname{RDT 1.0}: Perfectly reliable. Sender: wait for application data $\rightarrow$ send data. Recipient: wait for data $\rightarrow$ give data to application.
+\item \rnname{RDT 2.0 (Bit Errors)}: One bit can be corrupt. Recipient can check with checksum, and reply with ACK or NAK (Negative acknowledgement). However, if recipient sends corrupted NAK, sender won't know what to do. Re-sending packet is wrong as now, recipient cannot tell whether it's a new or re-sent packet.
+\item \rnname{RDT 2.1 (With Sequence No)}: Alternate waiting for packet 0 or packet 1. Now, client can tell whether it's resent or new packet. 
+\item \rnname{RDT 2.2 (No more NAK)}: Replace with ACK of last correct packet instead.
+\item \rnname{RDT 3.0 (Lost packets)}: No re-order, but packets can be lost or arbitrarily delayed. ACK can be lost too. Sender should wait for timeout, then re-send. If receive duplicate packets, discard. However, this is still not perfect. What if packet 0 gets delayed so long it gets re-sent, then packet 1 sent, then client receives stale packet 0 $\rightarrow$ assume packet 0 is new packet.
+\vspace{-1cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{rdt3.png}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Stop-and-wait}: RDT uses stop and wait. Inefficient as lots of time spent waiting.
+\item \rnname{Alternating-bit Protocol}: Only 1 bit: 0 or 1 as packet ID.
+\item \rnname{Pipelined protocols}: Go-back-N, and Selective Repeat.
+\item \rnname{Go-Back-N}: Cumulative ACK. ACK n means all $\leq$ n have been received. Sender maintain sliding window and timeout for oldest unACK packet. On timeout, resend all packets in window. Recipient discard all out-of-order packets, only ACK packets that come in order.
+\item \rnname{Selective Repeat}: Sends ACK for each packet. Sender and recipient both maintain timer for each unACKed packet, and retransmit on timeout. Recipient needs buffer to cache out-of-order packets.
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{selectRepeat.png}
+    \end{figure}
+    
+\end{flatitemize}
+\rntopic{UDP}
+\begin{flatitemize}
+
+\item \rnname{Connectionless De-multiplexing}: Sender creates socket with local port number. Specify destination host and port number. Recipient directs UDP segment to the socket with the specific port number.\\
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{UDP.png}
+    \end{figure}
+\item \rnname{Checksum}: Split data segment into 16-bit length. Sum all bits, wrap around carry, then compute 1's complement. Recipient just adds provided checksum with calculated checksum. If all 1s, then OK.
+\end{flatitemize}
+\rntopic{TCP}
+\begin{flatitemize}
+
+\item \rnname{Connectionl-oriented De-multiplexing}: Each connection is specified with (srcIP, srcPort, destIP, destPort).\\
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{TCP.png}
+    \end{figure}
+\item \rnname{TCP Offset}: Size of header in number of 32-bit word. If offset > 5, then options field is populated.
+\item \rnname{Sequence No.}: TCP Packet sequence number, in \textbf{bytes}, \textbf{not} segment.
+\item \rnname{TCP ACK}: Cumulative ACK, for next \textbf{byte} of data expected. Piggybacked on data. If in-order segment, waits 500ms for next segment (for performance reasons). Send ACK after time elapses.
+\item \rnname{Re-send}: TCP keeps only 1 timer for oldest packet, retransmits only the oldest unACK segment. 
+\item \rnname{RTT Estimate}: $(1-\alpha) \cdot RTT_{hist} + \alpha \cdot RTT_{sample}$. Typical $\alpha = \frac{1}{8}$
+\item \rnname{RTT Std Dev}: $(1-\beta) \cdot RTTDev_{hist} + \beta \cdot |{RTT_{sample} - RTT_{est}|} $
+\item \rnname{Timeout}: $RTT_{est} + 4 \cdot RTTDev$. Estimation + "safety margin"
+\item \rnname{TCP Fast Re-transfer}: If receive 3x duplicate ACK, re-transmit without waiting for timeout.
+\item \rnname{TCP Syn}: During initial handshake, agree on connection parameters eg initial sequence number (need not be 0). 3-way handshake: SYN $\rightarrow$ SYN/ACK $\rightarrow$ ACK/Data.
+\item \rnname{TCP Fin}: Indicates that sender will not send any more data. But can still receive.
+\item \rnname{Receive Window}: Indicates amount of buffer space of recipient, so sender does not waste resources/flood.
+\end{flatitemize}
+
+\rntopic{Network Layer}
+\begin{flatitemize}
+\item \rnname{Role}: Determines forwarding and routing.
+\item \rnname{IPv4}: 32-bit integer in dot-decimal notation. Hierarchical addressing.
+\item \rnname{Routing}: "Send me packets with address a.b.0.0/16". Longest (correct) prefix match. Compare target IP to advertised prefix. 
+\item \rnname{DHCP}: Dynamic Host Configuration Protocol. Automatically assigns IP address from DHCP server. 1. Client (port 68) broadcast DISCOVER message. 2. Server (port 67) responds with OFFER. 3. Client REQUESTS for the IP address. 4. Server ACKs the assignment. 
+\item \rnname{Subnet}: Hosts in the same subnet can access each other with just a switch. Subnet mask used to determine which subnet the IP belongs to. Subnet mask: all '1' for prefix bits, '0' for host bits. eg /23 = 11111111 11111111 11111110 00000000 = 255.255.254.0
+\item \rnname{NAT}: Internal private network, translated by the router into a single public IP. Maps port A internal to port B external. Hosts within NAT cannot be explicitly addressed from outside world. Needs to initiate connection from within NAT first, or port forward.
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{ipdatagram.png}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Datagram Fragmentation (IP)}: Each link determines its own Max Transmission Unit (MTU). Too large $\implies$ router splices it. Split original payload into multiple parts each with new IP header. Same id for all parts, length = how much data incl header, flag = 1 if have more parts, offset = bytes/8 from start of data.
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{IPSplit.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Internet Control Message Protocol (ICMP)}: $\neq$ IP. Datagram similar to IP, protocol = 0001, additional type/code like 8/0 = echo request, 3/1 = dest host unreachable 
+\item \rnname{Intra-AS routing}: Link State Algorithm - every router has global view, can run Dijkstra's. Distance Vector Algorithm: Only know connected neighbours, constantly update each other. Decentralised, self-terminating, iterative, async.
+\item \rnname{Distance Vector Algorithm (Poisoned Reverse)}: Uses Bellman Ford's. Each node stores cost to every other node. Sends neighbour x all the correct distance except those for which the neighbour is the next hop. Sends $\infty$ instead for those vertices. Solves counting to infinity for only 2-node cycle if a node goes down. Used by Routing Information Protocol (RIP).
+\item \rnname{Border Gateway Protocol (BGP)}: Inter-AS route to AS whose gateway has least cost. 
+\end{flatitemize}
+\rntopic{Security \& Cryptography}
+\begin{flatitemize}
+\item \rnname{Integrity}: Calculate SHA1 and append to plaintext.
+\item \rnname{MAC}: Integrity + Authenticity. Use a key as part of digest. e.g. HmacSHA1. Affirms to receiver the message's origin. Message becomes Message + Hash(message + key).
+\item \rnname{Digital Signature}: MAC + Verifiable by third party. Use private/public key instead of shared symmetric key. Message become Message + $K_{A}^{-}$(Hash(message)). Note: not hash(key(msg)), because Public Key encryption is slow.
+\end{flatitemize}
+\rntopic{Link Layer}
+\begin{flatitemize}
+\item \rnname{CRC}: With generator of r+1 bits (agreed beforehand), append r 0s to data. Take remainder of Data / generator. e.g. Data = 1101001, G = 1001. Take Data + "000" = 1101001000, then divide by G and take remainder. Division is XOR. Append remainder to data, and send. Receiver do same thing, 0 = no error.
+\item \rnname{Channel partitioning protocols}: 
+1. Time-Division Multiple Access (takes turns). \\
+2. Frequency-Division Multiple Access (different frequency). \\
+3. Code-Division Multiple Access (different orthogonal codes across all frequencies at the same time).\\
+4. Take turns with master-polling / pass the bucket\\
+5. Random: Slotted ALOHA. Send at any time and listen for collision. If collide, send again in next slot with fixed probability p.\\
+6. ALOHA: Send whenever, if collide, retry randomly with probability p.\\
+7. CSMA: Sense availability before transmitting. Can still collide due to propagation delay. \\
+8. CSMA/CD: Stop once collision is detected and re-transmit after random time. After $n^{th}$ collision, wait $\{0, 1, \dots, 2^{n-1}\} * 512$ bit-time. 512 because ethernet minimum frame = 64 bytes.\\
+9. CSMA/CA: Avoid collision due to hidden node problem by using request to send. Receives clear to send. Send. Receive ACK from recipient.
+\item \rnname{Ethernet Framing}: 
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{ethernetFraming.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+Preamble: 7 bytes of 10101010, + 10101011 to sync clock.\\
+MAC: 6 bytes each.
+\end{flatitemize}
+\rntopic{Local Area Network}
+\begin{flatitemize}
+\item \rnname{MAC Address}: Unique to adapter, when receive frame, check matches MAC address. Permanent address.
+\item \rnname{Address Resolution Protocol (ARP)}: Maps IP address to MAC address.
+\item \rnname{Sending message}: If A knows B's MAC address, just send frame to B's MAC address directly. If don't know, send a broadcast ARP query packet with B's IP address.
+\item \rnname{Sending message to different subnet}: If B is in different subnet (determined by IP), send packet to router, router replace MAC with its own, and forward to external network.
+\item \rnname{Collision}: Ethernet has no handshaking. If in Bus topology, can cause collision. Also no ACK/NAK, so lost data needs to be accounted for in higher layer RDT. Uses CSMA/CD to resolve collision.
+\item \rnname{Switch}: Network layer, has no IP address (transparent to hosts), provides star topology. Each host has dedicated link to switch, and switch selectively forwards frames to correct link.
+\item \rnname{Switch forwarding table}: has a similar MAC to interface mapping, learnt through broadcasting/forwarding messages.
+\item \rnname{Wireless LAN}: Difficult to detect collision. Uses CSMA/CA, uses link-layer ACK. Other devices, when detecting the CTS, defers sending until detecting the ACK from router. Then resume countdown from binary exponential backoff.
+\end{flatitemize}
+\rntopic{Physical Layer}
+\begin{flatitemize}
+\item \rnname{Non-return to Zero}: Unipolar scheme. +V = 1, 0V = 0. (Doesn't return to 0 between signals)
+\item \rnname{Non-return to Zero Level}: Polar scheme. Same as NRZ. But uses -V for 0 and +V for 1.
+\item \rnname{Non-return to Zero Invert}: Polar scheme. Same as NRZL. 0 = no inversion, 1 = inversion.
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{nrzi.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Bit slip}: The effect where clock not synced, multiple 1s later, the clock is off. Don't know n or n+1 bits.
+\item \rnname{Return to zero}: Always return to zero before changing new signal. [+V, 0], [-V, 0]. [-V, 0], ...
+\item \rnname{Manchester}: 0 = +v $\implies$ -v. 1 = -v $\implies$ +v.
+\item \rnname{Differential Manchester}: 0 = no inversion. 1 = inversion.
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{difmanchester.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Fourier Transform}: Can decompose an analog signal into its constituent pure signals.
+\item \rnname{Nyquist Bitrate Formula}: Only for noise-less channel. Theoretical max bitrate: $2B * log_{2}L$ where B is bandwidth (MHz) and L is number of signal levels. E.g. 2 signal levels in manchester. You can set any number of signal levels, only limited by how much noise you have.
+\item \rnname{Shannon Channel Capacity}: Noisy channel. Theoretical max bitrate: $B * log_{2}(1+SNR)$ where B is bandwidth (MHz) and SNR is signal to noise ratio. E.g. 2 signal levels in manchester. You can set any number of signal levels, only limited by how much noise you have.
+\item \rnname{Analog Encoding}: Wave is $A \sin (2\pi f t + \phi)$. Can change A: amplitude, f: frequency, $\phi$ phase.
+\item \rnname{Amplitude Shift Keying}: 
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{ask.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Frequency Shift Keying}: High freq = 1, low freq = 0.
+\item \rnname{Phase Shift Keying}: 
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{psk.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{PSK on Constellation Diagram}: Can be visualised as a circle, angle = phase change, distance = amplitude (constant for *PSK, varying levels with QAM = ASK+PSK)
+\vspace{-0.3cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{qam.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Baud rate}: number of signal units per sec.
+\item \rnname{Bit rate}: number of bits per sec = baud rate * bits per signal. e.g. $2^3$-QAM = 3 bits.
+\end{flatitemize}
+
+\end{multicols*}
+\end{document}
