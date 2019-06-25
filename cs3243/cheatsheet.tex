@@ -1,0 +1,270 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=0.7cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\setlength{\columnseprule}{0.4pt}\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
+\newcommand{\rntopic}[1]{\vspace{-2.0em}\subsection*{#1}\vspace{-1.0em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.3cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\intPlus}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.2cm,itemsep=-0.1em}
+\setlist[itemize,1]{itemsep=-0.1em,leftmargin=0.1cm,label=-}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\footnotesize
+%\tiny
+\setstretch{0.4}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{4}
+
+\raggedright
+
+\rntopic{Introduction}
+\begin{flatitemize}
+\vspace{0.3cm}
+\item \rnname{Performance measure}: An \textbf{external}, objective measure of how good the AI is.
+\item \rnname{Utility Function}: An \textbf{internal} metric to represent how well an agent is doing.
+\item \rnname{Fully/partially observable}: Sensors provide access to the complete state of environment at each point in time.
+\item \rnname{Deterministic/stochastic}: The next state of the environment is completely determined by current state and action executed by the agent.
+\item \rnname{Episodic/sequential}: The choice of current action does not depend on past episodes, and does not affect future decisions.
+\item \rnname{Static/dynamic}: The environment is unchanged while agent is thinking.
+\item \rnname{Discrete/continuous}: There is a finite number of distinct states, percepts and actions.
+\item \rnname{Single/multi agent}: An agent operating by itself in an environment.
+\item \rnname{Simple reflex agent}: Passive (acts only when observes a percept)\\
+state update only based on percept.
+\item \rnname{Model-based Reflex agent}: Passive. \\
++State update based on percept, current state, most recent action and model of environment.
+\item \rnname{Goal-based agent}:
++Active (acts to achieve goals)\\
+State update based on percept, state, action, model.
+\item \rnname{Utility-based agent}: 
++Active, has utility function and aims to maximise it.\\
+State update based on percept, state, action, model.
+\end{flatitemize}
+
+
+\rntopic{Uninformed Search}
+\begin{flatitemize}
+\vspace{0.3cm}
+\item \rnname{State}: Represents a physical configuration of the world.
+\item \rnname{Nodes}: Part of search tree/graph. Includes state, parent action and cost.
+\item \rnname{Tree Search}: Start at source node, keep searching until goal. Add neighbours to frontier at each iteration. \textbf{Can repeat states}.
+\item \rnname{Frontier}: Nodes we've seen but not yet explored.
+\item \rnname{Graph Search}: Similar to tree search, but do not revisit nodes. CP: Use memoization tables.
+\item \rnname{Search evaluation criteria}:\\
+1. Completeness: always find a solution if one exists\\
+2. Optimality: Able to find least-cost solution\\
+3. Time complexity: Num of nodes generated\\
+4. Space complexity: Num of nodes in memory at any time
+\item \rnname{Parameters}: \\
+b: max \# of successor nodes of any node.\\
+d: depth of shallowest \textbf{goal} node
+m: max depth of search tree
+\item \rnname{Uninformed Search}: Only uses problem input to search.
+\item \rnname{Uniform-cost Search}: Dijkstra's algorithm.\\
+Each round, we can get $\epsilon$ distance closer to the goal, so num steps = $\lfloor \frac{C^*}{\epsilon} \rfloor$ where $C^*$ is optimal cost. At step k, there are at most $b^k$ nodes in PQ.
+1. BFS, IDS complete if b is finite \\
+2. UCS complete if b is finite and step cost $\geq \epsilon$. \\
+3. BFS, IDS optimal if all step costs equal \\
+4. IDS optimal only if depth increases by 1 each time.
+\end{flatitemize}
+
+\vspace{-0.3cm}
+\begin{flatitemize}
+\rntopic{Informed Search}
+\item \rnname{Greedy best-first search}: Explore nodes that appear closest to goal nodes. \\
+Complete, not optimal, $O(b^m)$ time and space worst case complexity although heuristic can reduce complexity. Reduces to BFS in worst case. \\
+\textbf{Ignores cost to get to node, hence might take expensive routes that look close}. f(n) is estimated cost of path \textbf{from} n to goal.
+\item \rnname{A* Search}: Evaluation function $f(n) = g(n) + h(n)$ where $g(n)$ is cost start $\rightarrow$ n, $h(n)$ is estimate n $\rightarrow$ goal.\\
+So $f(n)$ is estimated cost of cheapest path \textbf{through} n to goal. 
+Time: $O(b^{h^{'}(S_0) - h(S_0)})$ where h' actual cost of root $\rightarrow$ goal.\\
+Space: Max size $O(b^m)$.
+\item \rnname{Theorem}: If h(n) is admissible, then A* using TREE-SEARCH is optimal.
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{astar.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Consistent}:
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{consistent.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Theorem}: If h(n) is consistent, then A* using GRAPH-SEARCH is optimal.
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{optimalastar.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Consistency vs admissible}: Can be proven consistent $\rightarrow$ admissible. Other way not true. \\
+Admissible cannot guarantee optimality on A* GRAPH-SEARCH because GRAPH-SEARCH discards new paths to repeated state. Consistent: always follow optimal path. 
+\item \rnname{Dominance}: If $h_2(n) \geq h_1(n)$ for all $n$ (both admissible), then $h_2$ dominates $h_1$. It follows that $h_2$ incurs lower search cost.\\
+In other words, the closer heuristic is to actual answer, the lower search cost involved. Unless heuristic over-estimates, then it's bad.
+\item \rnname{Local Search}: Find best move at each step, forget about the rest. Saves memory, but may run into local maxima.
+
+\end{flatitemize}
+
+\vspace{-0.3cm}
+\begin{flatitemize}
+\rntopic{Adversarial Search}
+\item \rnname{Problem Formulation}: A game is defined by 7 components: initial state $s_0$, states, players, actions, transitions/result, terminal test, utility function.
+\item \rnname{Winning/Non-losing Strategy}: A strategy is called a winning/NL strategy (for player 1) if for any strategy by player 2, player 1 wins / player 2 does not win.
+\item \rnname{Minimax algorithm}: MAX player selects move that maximises utility at each choice, MIN player selects move that minimises utility (the more negative, the better) at each choice.\\
+Complete: Yes, if the game tree is finite.\\
+Returns a sub-perfect Nash Equilibrium: best action at every choice node.
+Optimal: Yes\\
+Time: $O(b^m)$\\
+Space: $O(bm)$\\
+Minimax is comparable to running a DFS.
+\item \rnname{Alpha-Beta pruning}: Prune subtrees that never affect decision.
+
+\item \rnname{Heuristic evaluation function}: Alpha-Beta pruning needs the entire search tree. Infeasible. Use cutoff test to heuristically evaluate. Should be strongly correlated with actual chances of winning. 
+
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{proofminimaxnash.png}
+    \end{figure}
+\vspace{-0.4cm}
+
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{proofprune.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+
+\end{flatitemize}
+
+\begin{flatitemize}
+\rntopic{Constraint Satisfaction Problem}
+\item \rnname{Complete assignment}: All variables are set
+\item \rnname{Consistent assignment}: No violation of constraints
+\item \rnname{Binary CSP}: All constraints involve only 2 variables
+\item \rnname{Constraint Graph}: A graph where nodes are variables and links are constraints
+\item \rnname{Types of variables}: Can be discrete or continuous
+\item \rnname{Types of constraints}:\\
+1. Precendence: $A + k \leq B$ \\
+2. Disjunctive: $A = j or A = k$\\
+
+1. Unary: involving single variable: $A = k$ or $A \neq k$\\
+2. Binary: $A \neq B$\\
+3. Higher order: $A + B + C \leq k$
+\item \rnname{Arc consistency propagation / AC3 algorithm}: After removing some values, propagate the updated set again; there might be new "impossibles" as a result. Similar to playing Sudoku. TIme complexity: $O(n^2d^3)$. At most $n^2$ constraints, at most d values to delete, so each arc inserted d times. Checking consistency takes $O(d^2)$ time.
+\item \rnname{Drawbacks}: Easy to propagate, difficult to implement backtrack correctly.
+\item \rnname{CSP with tree}: If CSP constraint creates a tree, then we can compute a satisfying assignment in $O(nd^2)$ time. Idea: O(n) constraints, and tree means no cycles $\implies$ no need to propagate in cycles / only need to propagate within subtree.
+\item \rnname{Algorithm}: Arbitrarily root the tree. Starting from leaves, make parents arc-consistent with children, i.e. ensure choice of parents don't cause children to become impossible. (No need vice versa). Then, if successful, start assigning from root down. If multiple choices, any is OK.
+\item \rnname{Local Search}: Min-conflict algorithm: Do hill-climbing by selecting value which results in least conflict.
+\end{flatitemize}
+
+\begin{flatitemize}
+\rntopic{CSP}
+\item \rnname{Modeling} $m$ models $\alpha$ if $\alpha$ is true under $m$.
+\item \rnname{Entailment}: Entailment means that one thing follows from another. For example, $\alpha$ = q is prime entails $\beta$ = q is odd or q = 2. If $\alpha \vDash \beta, M(\alpha) \subseteq M(\beta)$.  
+\item \rnname{Model checking}: If KB entails $\alpha$, i.e. KB is a subset of $M(\alpha)$ then we can infer/prove $\alpha$ is true by model checking.
+\item \rnname{Sound}: "Don't infer nonsense". $KB\vdash_A \alpha$ implies $KB (actually) \vDash \alpha$.
+\item \rnname{Complete}: "If it's implied, it will be inferred." $KB \vDash \alpha$ implies $KB\vdash_A \alpha$
+
+\item \rnname{Satisfiability}: $KB \vDash \alpha$ if and only if $(KB \wedge \neg \alpha)$ is unsatisfiable.
+\item \rnname{Horn Clause}: Has at most 1 positive literal, e.g. $\neg A \wedge \neg B \wedge C$. Can transform to $(A \vee B) \implies C$. Then can draw AND-OR graph for forward/backward chaining.
+
+\item \rnname{WalkSAT}: Tests for satisfiability. If return true, satisfiable. If return false, either unsatisfiable, or needs more time. Algorithm: Choose a random unsatisfied clause. With probability p flip truth value of a random symbol, otherwise flip symbol that maximises number of satisfied clauses in the formula. Repeat the above for $max_k$ times. If all satisfied, return true. Otherwise return false.
+
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{fc.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+
+\item \rnname{Convert KB to CNF}:
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{step1.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{step2.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{step3.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+
+\item \rnname{Independence given variable}:
+Shaded = given variable\\
+\vspace{-0.5cm}
+    \begin{figure}[H]
+      \includegraphics[width=7cm]{active.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+
+\item \rnname{Proof consistent}: 
+$h(n) = |h_{SLD}(sibiu) - h_{SLD}(n)|$ \\
+Need to prove that for every successor $n'$ of $n$, $h(n') \leq h(n) + d(n, n')$ \\
+By triangular inequality, \\
+$h_{SLD}(n') \leq h_{SLD}(n) + d(n, n')$ \\
+$\implies h_{SLD}(n') - h_{SLD}(Sibiu) \leq h_{SLD}(n) - h_{SLD}(Sibiu) + d(n, n')$ \\
+$h_{SLD}(n) \leq h_{SLD}(n') + d(n, n')$ \\
+$\implies h_{SLD}(n) + h_{SLD}(Sibiu) \leq h_{SLD}(n') + h_{SLD}(Sibiu) + d(n, n')$ \\
+$\implies h_{SLD}(Sibiu) - h_{SLD}(n') \leq h_{SLD}(Sibiu) - h_{SLD}(n) + d(n, n')$ \\
+
+So $|h_{SLD}(Sibiu) - h_{SLD}(n')| \leq |h_{SLD}(Sibiu) - h_{SLD}(n)| + d(n, n')$ \\
+$h(n) \leq h(n') + d(n, n')$
+
+\end{flatitemize}
+\end{multicols*}
+\end{document}
