@@ -1,0 +1,425 @@
+\documentclass[a4paper,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage[margin=0.7cm,bottom=0.7cm,footskip=0.3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{changepage}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\setlength{\columnseprule}{0.4pt}\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
+\newcommand{\rntopic}[1]{\vspace{-2.0em}\subsection*{#1}\vspace{-1.0em}}
+\newcommand{\rnsubtopic}[1]{\subsection*{#1}}
+\newcommand{\rnsubsubtopic}[1]{\hspace{0.3cm}\underline{\textbf{#1}}}
+
+\newcommand{\rnkey}[1]{\textbf{#1}}
+\newcommand{\rnname}[1]{\textbf{#1}}
+\newcommand{\rnkeyname}[2]{\textbf{\rnkey{#1} [\rnname{#2}]}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\intPlus}{\mathbb{Z}^{+}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rnand}{\textrm{ and }}
+\newcommand{\rnor}{\textrm{ or }}
+\newcommand{\rnst}{\textrm{ such that }}
+\newcommand{\rnmod}{\textrm{ mod }}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\newlist{flatitemize}{itemize}{1}
+\setlist[flatitemize,1]{label=\textbullet,leftmargin=0.1cm,itemsep=-0.1em}
+\setlist[itemize,1]{itemsep=-0.1em,leftmargin=0.1cm,label=-}
+
+%Non-breaking items; they won't break across the page
+%https://tex.stackexchange.com/questions/161703/prevent-page-breaks-between-item-heading-and-item-content
+\def\nbitem{\needspace{\parskip}\item}
+
+\begin{document}
+\footnotesize
+%\tiny
+\setstretch{0.4}
+\vspace*{-\baselineskip}\leavevmode
+\vspace{-1.2cm}
+
+\begin{multicols*}{4}
+
+\raggedright
+
+\rntopic{Probability}
+\vspace{0.3cm}
+\begin{flatitemize}
+\item \rnname{Sample Space}: The set of all possible outcomes of an experiment. eg. S = \{HH, HT, TH, TT\}
+\item \rnname{Equally likely outcome}: If there are m equally likely possibilities, of which one must occur and s are regarded as a success, then the prob of a success is given by s=m.
+\item \rnname{Frequency Interpretation}: The prob of an event is the proportion of times the event will occur in a
+long run of repeated experiments.
+\item \rnname{Personal Prob}: the degree to which a given individual believes that the event will happen. Sometimes, the term subjective prob is used because the degree of belief may be different for each
+individual.
+\item \rnname{Union and Intersection}: As per normal set union and intersection definitions. \\ Union and Intersection are commutative, associative and distributive. Think of intersection as multiplication and union as addition. \\
+De Morgan's laws also apply. ($E_1 \cup E_2 \cup ...E_n)^c = E_1^c \cap E_2^c \cap ... E_n^c$, vice versa.
+\item \rnname{Generalised Basic Principle of Counting: Multiplication principle}: Suppose that r tests are performed, each with $n_i$ choices. Then there are $\prod_{i=0}^r n_i$ combinations to do all of the tests. \\
+For example: 10 MCQ qns with 4 choices each. Then $3^{10}$ ways of getting all answers wrong.
+\item \rnname{Factorial}: If there are n distinct objects, the number of ways of arranging them is n!
+\item \rnname{Circles}: For n distinct items in a circle, there are $\frac{n!}{n}$ ways to arrange them.
+\item \rnname{Necklaces}: There are $(n-1)!/2$ ways to arrange items on a necklace.
+\item \rnname{Generalised Basic Principle of Counting: Addition Principle}: Suppose that r tests are performed, each with $n_i$ choices. Then there are $\sum_{i=0}^{r}$ ways to perform any 1 experiment (a or b or c...).
+\item \rnname{Permutations: distinct objects}: Number of ways to arrange r out of n distinct objects: $nPr = \frac{n!}{(n-r)!}$. Order matters.
+\item \rnname{Permutations: not all distinct}:
+Let there be $n_i$ copies of the $i$th object. Number of ways to arrange these n objects of k types: $\frac{n!}{n_1!n_2!...n_k}$
+\item \rnname{Combinations: distinct objects}: Number of ways to choose r objects from n distinct ones: nCr $ = \frac{n!}{r!(n-r)!}$  
+\item \rnname{Prob}: \\
+1. For any event A, $0 \leq P(A) \leq 1$.\\
+2. Let S be the sample space. $P(S) = 1$.\\
+3. For any mutually exclusive events $A_1, A_2, ...$, the union of their probabilities = sum of probabilities, while intersection = 0.\\
+4. $P(A^c) = 1 - P(A)$\\
+5. If $A \subseteq B$, $P(A) + P(BA^c) = P(B)$\\
+6. (Incl-excl principle): $P(A \cup B) = P(A) + P(B) - P(AB)$.
+7. $P(A \cup B \cup C) = P(A) + P(B) + P(C) - [P(AB) + P(AC) + P(BC)] + P(ABC)$
+8. $P(A) = \frac{\text{number of ways in A}}{\text{number of ways in S}}$
+
+\item \rnname{Conditional Prob}: B given that A has occurred: $P(B|A) = \frac{P(B \cap A)}{P(A)}$ \\
+Remark: $P(\cdot | A)$ is also a prob, so all properties of prob apply too.
+\item \rnname{Multiplication Rule}: $P(A \cap B) = P(A)P(B|A) = P(B)P(A|B)$
+\item \rnname{Generalised Multiplication Rule}: $P(A_1A_2...A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1A_2)...P(A_n|A_1A_2...A_{n-1})$
+\item \rnname{Inverse Prob}: $P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}$
+\item\rnname{Indep}: Two events A and B are indep if and only if $P(A\cap B) = P(A)P(B)$ or $P(A|B) = P(A)$ or $P(B|A) = P(B)$.
+\item \rnname{Mutual Exclusion}: Two events A and B are mutually exclusive if and only if $P(A \cap B) = 0$.
+\item \rnname{Theorem on independence}: If A and B are indep, so are A and $B^c$, $A^c$ and B, $A^c$ and $B^c$.
+\item \rnname{Pairwise Indep}: A set of events $A_1,A_2,...,A_n$ are pairwise indep if and only if $P(A_iA_j) = P(A_i)P(A_j)$ for all i,j, $i \neq j$.
+\item \rnname{Mutual Indep}: A set of events $A_1,A_2,...,A_n$ are mutually indep if and only if for any subset k, all the events are indep, ie $P(A_{i \ in k}) = P(A_i)...P(A_k)$. There are $2^n - n - 1$ cases.
+\item \rnname{Remarks}: \\
+1. Mutual independence implies pairwise independence, but not vice versa.
+2. Suppose $A_1,...A_n$ are mutually indep events, and $B_i = A_i or A_i^c$ for $i = 1,...,n$. Then $B_1,...B_n$ are also mutually indep. 
+\item \rnname{Bayes' Theorem}: Let $B_1, ..., B_n$ be a \textbf{partition} of S. For any event A, and any $k \in 1, ..., n$ \\
+$$P(B_k|A) = \frac{P(B_k)P(A|B_k)}{P(B_1)P(A|B_1)+ ... + P(B_n)P(A|B_n)}$$
+\item \rnname{Example}: Calculate $P(A^c|O)$
+\vspace{-0.5cm}
+    \begin{figure}[H]
+        \includegraphics[width=5cm]{bayes.PNG}
+    \end{figure}
+\vspace{-0.5cm}
+\item \rnname{Rule of Total Prob}: $P(A) = P(B_1)P(A|B_1) + P(B_2)P(A|B_2) + ...$ where $B_1, B_2, ...$ is a partition of S.
+\end{flatitemize}
+\vspace{0.3cm}
+\rntopic{Random variables}
+\begin{flatitemize}
+\vspace{0.3cm}
+\item \rnname{Random Variable}: A random variable X is a mapping from the sample space S to the set of real numbers $\reals$. That is: $X : S \rightarrow \reals$. \\
+We use uppercase for the variable: X, and lowercase for a value x that the variable can take.
+\item \rnname{Equivalent Event}: Let $A = \{s \in S | X(s) \in B\}$. In other words, A consists of all sample points in which X(s) is in B. A is the pre-image of B. $P(A) = P(B)$, so we say A and B are equivalent events.
+\item \rnname{Prob Mass Function for Discrete Variables}: Prob function $f_X (x_i) = P(X = x_i)$.
+\item \rnname{Properties of PMF for Discrete Variables}: \\
+1. $f(x_i) \geq 0$ for every $x_i$ \\
+2. $\sum_{x_i} f(x_i) = 1$ \\
+3. $P(X \in E) = \sum_{x_i \in E} f(x_i)$
+\item \rnname{Example}: Let $p(k) = c\frac{\lambda^{k}}{k!}, k = 0,1,2,...$. \\
+Then $\sum_{k=0}^{\infty}p(k) = 1$. \\
+Thus 1 = $c\sum_{k=0}^{\infty}\frac{\lambda ^ {k}}{k!} = c e^\lambda$ (by Maclaurin's Series). \\
+Thus $c = e^{-\lambda}$
+\item \rnname{Prob Function}: Can be expressed in multiple ways. \\
+1. $f(x) = 
+\begin{cases}
+    kx^2,& \text{if } x\geq 1\\
+    0,              & \text{otherwise}
+\end{cases}$ \\
+2.
+\begin{tabular}{ | c | c | c | c | c | } \hline
+ y & -1 & 1 & 2 & 3 \\ \hline
+f(y) & 0 & 1 & 4 & 9\\ \hline
+\end{tabular}
+\item \rnname{Prob Mass Function for Cont Variable}: $P(a < X \leq b) = \int_a^b f(x) dx$.
+\item \rnname{Properties of PMF for Cont Variable}: \\
+1. $P(X = x) = 0$ for any x. \\
+2. $f(x) \geq 0 $ for any x. \\
+3. The total area under the curve is 1, i.e. $\int_{-\infty}^{\infty} f(x) dx = 1$
+\item \rnname{Example}: \\
+Find k such that f(x) is prob density function. \\
+$$f(x) = 
+\begin{cases}
+    kx^2(1-x),& \text{for } 0 < x < 1\\
+    0,              & \text{otherwise}
+\end{cases}$$ \\
+Solution: Ensure that f(x) integrates to 1.
+$$ 1 = \int_{-\infty}^{\infty}f(x) dx = \int_{0}^{1}kx^2(1-x) dx $$
+$$
+= k \big[ \frac{x^3}{3} - \frac{x^4}{4} \big]_{0}^{1} = k/12 $$
+\\
+For example, the prob that $x \leq 0.5$ is $\int_{-\infty}^{0.5}f(x) dx$
+\item \rnname{Cumulative Distribution Function}: $F(x) = P(X \leq x)$. We usually denote CDF with caps F, and PDF with lowercase f.
+\item \rnname{Properties of CDF}: \\
+1. $F(x)$ is a non-decreasing function. \\
+2. $\lim_{x \rightarrow -\infty} F(x) = 0, \lim_{x \rightarrow \infty} F(x) = 1$\\
+3. $ 0 \leq F(x) \leq 1$. \\
+\item \rnname{Discrete CDF}: $\sum_{t \leq x}f(t) = \sum_{t \leq x}P(X=t)$ \\
+Useful formula: $P(a \leq X \leq b)$ \\
+$= P(X \leq b) - P(X < a) = F(b) - F(a^-)$ \\
+\vspace{-0.4cm}
+    \begin{figure}[H]
+      \includegraphics[width=5cm]{cdf.PNG}
+    \end{figure}
+\vspace{-0.4cm}
+\item \rnname{Cont CDF}: $F(x) = \int_{-\infty}^{x} f(t) dt$. \\
+If the derivative exists, $f(x) = \frac{d}{dx} F(x) $
+\end{flatitemize}
+
+
+\rntopic{Mean and Variance}
+\vspace{0.3cm}
+\begin{flatitemize}
+\item \rnname{Mean $\mu_{X}$}: Also known as expected value E(X). Is the weighted average.
+\item \rnname{Discrete Mean}: $\mu_{X} = E(X) = \sum_{x_i} x_i P(X = X_i) = \sum_{x} x f(x)$. \\
+In other words, add across all x: $P(x) * val(x)$.
+\item \rnname{Discrete Mean}: $\mu_{X} = E(X) = \int_{-\infty}^{\infty} xf(x) dx$. \\
+In other words, integrate area, multiplied by val(x).
+\item \rnname{Properties of expectation}: \\
+1. If a and b are constants, $E(a+bx) = a + bE(x)$. \\
+\item \rnname{Expectation of g(x) (IMPT!)}: Given prob density function $f_X(x)$ and any other function g(X) on this random variable X, \\
+1. Discrete X: $E[g(X)] = \sum_{x}g(x) f_X(x)$ \\
+2. Cont X: $E[g(x)] = \int_{-\infty}^{\infty} g(x) f_X(x)$ \\
+In other words, just replace the original $x$ with $g(x)$. Don't need to modify $f_X(x)$.
+\item \rnname{k-th moment of x}: Set $g(x) = x^k$.\\ 
+In other words, $E(X^k)$ is the k-th moment of X.
+\item \rnname{Variance}: As above, set $g(x) = (x-\mu_{x})^2$. \\
+In other words, $V(X) = \sigma ^2 = E[(X-\mu_{x})^2]$. 
+\item \rnname{Properties of variance}: \\
+1. $V(X) \geq 0$ \\
+2. (impt) $V(X) = E(X^2) - [E(X)]^2$ \\
+3. If $V(X) = 0$ then $P(X = \mu_X) = 1$.\\
+4. For constants a, b, $V(a+bX) = b^2V(X)$
+\item \rnname{Standard Deviation}: $\sigma_X = SD(X) = \sqrt{V(X)}$
+\item \rnname{Chebyshev’s Inequality}: Gives an $\textbf{upper bound}$ on prob of getting a value that deviates from $\mu$ by a certain amount $k\sigma$. Formally, \\
+$$P(|X-\mu|>k\sigma)\leq \frac{1}{k^2} \text{ or } P(|X-\mu| \leq k\sigma) \geq 1 - \frac{1}{k^2}$$ \\
+Remark: applying k = 2, there's at most 25\% chance that a value is outside 2 S.D. from mean.
+\end{flatitemize}
+
+\rntopic{2D Random Variables}
+\vspace{0.3cm}
+\begin{flatitemize}
+\item \rnname{Joint Prob (Density) Fn}: $f_{X, Y}(x, y)$ represents $Pr(X = x, Y = y)$. $f_{X, Y}(x, y) \geq 0$. \\
+Discrete: $\sum_{i=1}^{\infty} \sum_{j=1}^{\infty}f_{X, Y}(x_i, y_j) = 1$ \\
+Cont: $\int \int_{(x, y) \in R_{X, Y}}f_{X, Y}(x, y) \dif x  \dif y = 1$ or $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X, Y}(x, y) \dif x  \dif y = 1$
+\item \rnname{Marginal Dist}: $f_{X}(x) = \int_{-\infty}^{\infty}f_{X, Y}(x, y) \dif y$
+\item \rnname{Conditional Dist of $Y$ given $X = x$}: $f_{Y|X}(y|x) = \frac{f_{X, Y}(x, y)}{f_{X}(x)}$ if $f_X(x) > 0$. i.e. fix one dimension and calculate the 1D prob density fn of the other. Note: conditional dist also satisfies normal prob rules e.g. $\int_{-\infty}^{\infty} f_{Y|X}(y|x)dy = 1$
+\item \rnname{$X$ and $Y$ are indep if and only if}: $f_{X, Y}(x, y) = f_{X}(x)f_{Y}(y)$ for all $x, y$, or equivalently,
+$f_{X|Y}(x|y) = f_{X}(x)$.
+\item \rnname{Expectation of $g(x,y)$}:\\
+Discrete: $E[g( X,Y)]=\sum_{x}\sum_{y}g( x,y)f_{X,Y}(x,y)$\\
+Cont: $E[g(X,Y)]=\int \int g(x,y)f_{X,Y}(x,y) \dif y \dif x$
+\item \rnname{Linearity of Expectataion}: For \textbf{any} $x_1, x_2, ...$, $E(a_0 + a_1 x_1 + a_2 x_2 + ... + a_n x_n) = a_0 + a_1 E(x_1) + a_2 E(x_2) + ... + a_n E(x_n)$
+\item \rnname{Covariance}: $Cov(X,Y) = \sigma_{X,Y} = E[(X-\mu_x)(Y-\mu_y)]$
+\item \rnname{Properties of Covariance}: \\
+1. $Cov(X,Y) = E(XY) - E(X)E(Y) = E(XY) - \mu_x \mu_y$ \\
+2. $Cov(X,X) = V(X)$\\
+3. $Cov(X,Y) = Cov(Y,X)$ \\
+4. $Cov(aX + b, cY + d) = acCov(X,Y)$\\
+5. $V(aX+bY) = a^2V(X)+b^2V(Y) + 2abCov(X,Y)$
+6. X,Y indep $\implies Cov(X,Y) = 0$.
+\item \rnname{Correlation Coefficient}: \\
+$Cor(X,Y) = \rho_{X,Y} = \frac{Cov(X,Y)}{\sqrt{V(X)}\sqrt{V(Y)}}$ \\
+$-1 \leq \rho_{X,Y} \leq 1$. \\
+$X, Y indep \implies \rho_{X,Y} = 0$.
+\end{flatitemize}
+
+\begin{flatitemize}
+\rntopic{Prob Distributions}
+\item \rnname{Uniform Discrete Distribution}: \\ PMF: $f_X(x) = P(X = x) = 1/k\ \forall\ x = x_1, x_2, ... x_k$\\
+$\mu = E(X) = 1/k \sum_{i=1}^{k}x_i$ \\
+$\sigma^2 = V(X) = 1/k \sum_{i=1}^{k}(x_i - \mu)^2$
+$\sum_{k=1}^{n}k^2 = \frac{n(n+1)(2n+1)}{6}$, $\sum_{k=1}^{n}k^3 = \frac{n^2(n+1)^2}{4}$
+\item \rnname{Bernouli Distribution}: A random variable X has a Bernouli Distribution with parameter $0 < p \leq 1$ when it has prob mass function $f_X(x) = p^x(1-p)^{1-x}$ for $x = 0, 1$.\\
+$E(X) = p$, $V(X) = p(1-p)$\\
+N. B. Bernouli distribution is a special case of Binomial with n = 1.
+\item \rnname{Binomial Dist $X \sim B(n,p)$}: A random variable X has a Binomial Distribution with parameters $n \in \ints^+$ and $0 < p \leq 1$ when it has PMF
+$f_X(x) = {n \choose x} p^x(1-p)^{1-x}$ for $x = 0, 1, ..., n$\\
+"Make n tries with prob p. X = How many successes?" \\
+$E(X) = np$, $V(X) = np(1-p)$ \\
+Note: \\
+1. Trials must be indep. \\
+2. P(success) must be a constant. \\
+3. There can only be success OR failures.
+\item \rnname{Geometric Dist $X \sim Geom(p)$}: A random variable X has a Geometric Distribution with parameters $0 < p \leq 1$ when it has PMF
+$f_X(x) = (1-p)^{x-1}p$ for $x = 1, 2, ..., n$\\
+"Keep trying (with success rate p) until 1st success. What's the prob that X tries are needed?" \\
+$E(X)$=$\frac{1}{p}$, $V(X)$=$\frac{1-p}{p^2}$, $P(X \leq x)$=$1 - (1 - p)^x$ \\
+Memoryless: $P(X > n+k | X > n) = P(X > k)$.
+\item \rnname{Negative Binomial Dist $X \sim NB(k, p)$}: A random variable X has a Negative Binomial Distribution with parameters $k \in \ints^+$ and $0 < p \leq 1$ when it has PMF
+$f_X(x) = {x - 1 \choose k - 1} p^k (1-p)^{x-k}$ for $x = 0, 1, ..., n$\\
+"Keep trying (with success rate p) until k successes. What's the prob that x tries are needed?" \\
+$E(x) = \frac{k}{p}$, $V(X) = \frac{(1-p)(k)}{p^2}$\\
+Geometric distribution is a special case of NB distribution with $k = 1$, i.e. $Geom(p) = NB(1, p)$
+\item \rnname{Poisson Dist}: The PMF of the number of successes X in a Poisson experiment with parameter $\lambda > 0$ denoted by $X \texttildelow Poisson(\lambda)$ is $f_X(x) = \frac{e^{-\lambda}\lambda^x}{x!}$ for $x = 0, 1, 2, ...$\\
+$E(X) = \lambda$, $V(X) = \lambda$ \\
+Here, $E(X) = \lambda$ is the average number of successes occurring in the given
+time interval or specified region.
+\item \rnname{Binomial $\rightarrow$ Poisson}: Let $X \sim B(n,p)$. X will have an approx Poisson dist with parameter np. \\
+$$\displaystyle \lim_{n\rightarrow\infty, p\rightarrow\infty}P(X = x) = \frac{e^{-np}(np)^x}{x!}$$\\
+Approximation good when $n \geq 20\ and\ p \leq 0.05\ OR\ n \geq 100\ and\ np \leq 10$\\
+If p is large, we can swap $p$ with $1-p$
+\item \rnname{Cont Uniform Dist}: X follows a random uniform distribution with range $[a, b]$, denoted by $X \sim U(a,b)$ if its prob density function is:
+$f_X(x) = \frac{1}{b-a}$ for $a \leq x \leq b$. \\
+E(X) = $\frac{a+b}{2}$, V(X) = $\frac{(b-a)^2}{12}$.
+\item \rnname{Exponential Dist}: X follows a exponential distribution with parameter $\lambda$ denoted by $X \sim Exp(\lambda)$ if its prob density function is:
+$f_X(x) = \lambda e^{-\lambda x}$ for $x > 0$, and $0$ otherwise. \\
+E(X) = $\frac{1}{\lambda}$ = $\sigma$, V(X) = $\frac{1}{\lambda^2}$, P($X>x$) = $e^{-\lambda x}$ \\
+Memoryless: $P(X > s + t | X > s) = P(X > t)$.
+\item \rnname{Normal Dist}: X follows a normal distribution with parameter $\mu \in \reals$ and $\sigma > 0$ denoted by $X \sim N(\mu, \sigma^2)$ if its prob density function is:
+$f_X(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ \\
+E(X) = $\mu$, 
+V(X) = $\sigma^2$\\
+Sym about $x = \mu$, max value (at $x = \mu$) is $\frac{1}{\sqrt{2 \pi} \sigma}$
+\item \rnname{Standard Normal}: Normal distribution with $\mu = 0$ and $\sigma = 1$, denoted with $Z \sim N(0, 1)$. PDF: $\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}}$. \\
+If $Y \sim N(\mu, \sigma^2)$, then $Z = \frac{Y-\mu}{\sigma} \sim N(0, 1)$. \\
+CDF $\Phi(z) = P(Z \leq z) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}e^{-\frac{y^2}{2}}\dif y$
+\item \rnname{Quantile}: Can look up the table to retrieve $z$ such that $P(Z\leq z) = q$ for a given $q$.
+\item\rnname{Binomial $\rightarrow$ Normal}: $\mu = np, \sigma^2 = np(1-p)$. $X$ approx $\sim N(np, np(1-p))$ as $n \rightarrow \infty$. \\
+% As $n \rightarrow \infty, Z = \frac{X - np}{\sqrt{np(1-p)}} \sim N(0, 1).$
+% X becomes a normal distribution with mean $np$ and variance $np(1-p)$. 
+Remember to apply continuity correction! \\
+Good when $np > 5$ and $n(1-p) > 5$
+\end{flatitemize}
+\begin{flatitemize}
+\rntopic{Samplings}
+\item \rnname{Sampling Dist of Sample Mean $\bar X$}: Let pop mean be $\mu$, pop s.d. be $\sigma$ and sample size be $n$. \\
+Assumption: infinite pop or finite pop with replacement (aka prob same)\\
+Distribution of $\bar X$: $E(\bar X) = \mu_{\bar X} = E(X)$, $V(\bar X) = \frac{V(X)}{n}$ = $\sigma_{\bar X}^{2}$ = $\frac{\sigma_X^2}{n}$
+\item \rnname{Law of Large Number (LLN)}: $P(|\bar X - \mu| > \epsilon) \rightarrow 0$ as $n \rightarrow 0$
+\item \rnname{CLT($N\rightarrow\infty$)}: $\bar X \sim N(\mu, \frac{\sigma^2}{n}),Z=\frac{\bar X - \mu}{\sigma / \sqrt{n}} \sim$N(0,1)
+\item \rnname{Diff of 2 samples}: If $n_1, n_2 \geq 30$, $(\bar X_1 - \bar X_2)$ follows normal dist. $E(\bar X_1 - \bar X_2)$=$E(\bar X_1) - E(\bar X_2)$, $V(\bar X_1 - \bar X_2)$ = $V(\bar X_1) + V(\bar X_2)$
+\item \rnname{Gamma Fn}: $\Gamma(n) = \int_{0}^{\infty} x^{n-1}e^{-x} \dif x$. For +ve integer $n$, $\Gamma(n) =(n-1)!$
+\item \rnname{Chi-Sq Dist}: $Y \sim \chi^2(n)$ ($n$-deg of freedom)\\
+$f_Y(y) = \frac{1}{2^{n/2}\Gamma(n/2)}y^{n/2-1}e^{-y/2}$ for $y>0$ \\
+$E(Y) = n$, $V(Y) = 2n$, $\chi^2(n)$ approx $\sim N(n, 2n)$ for large $n$. If $X \sim N(\mu, \sigma^2)$, then $(\frac{X - \mu}{\sigma})^2 \sim \chi^2(1)$ \\
+If $Y_1, Y_2, ..., Y_k$ are indep $\chi^2$ RV with $n_1, n_2, ... , n_k$ deg of freedom, then $Y_1 + .. + Y_k \sim \chi^2(n_1 + .. + n_k)$ \\
+If $X_1, X_2, ..., X_n$ be rand sam from a norm pop with mean $\mu$ and var $\sigma^2$, then $Y=\sum_{i=1}^{n} \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2(n)$ \\
+$\chi^2(n;\alpha)$ is $k$ satisfying $P(Y \geq k) = \alpha$, $Y \sim \chi^2(n)$
+\item \rnname{Samp Var}: Let $X_1, X_2, ... X_n$ be rand sam from a pop. Sample variance $S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar X)^2$.
+If $S^2$ is the variance of a rand sam of size $n$ from a norm pop with var $\sigma^2$, then $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)$
+\item \rnname{T-dist}: Let $Z \sim N(0, 1)$, $U \sim \chi^2(n)$. If $Z$ and $U$ are indep, $T = \frac{Z}{\sqrt{U/n}} \sim t(n)$ (follows T-dist with $n$ deg of freedom) \\
+$f_T(t) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi} \Gamma(n/2)}(1 + \frac{t^2}{n})^{\frac{n+1}{2}}$ for $-\infty < t < \infty$ \\
+Sym about $x = 0$; $\lim\limits_{n \rightarrow \infty}f_T(t) = \frac{1}{\sqrt{2\pi}}e^{-z^2/2}$ \\
+$E(T) = 0$ and $V(T) = n/(n-2)$ for $n > 2$ \\
+$t_{n;\alpha}$ is $k$ satisfying $P(T \geq k) = \alpha$, $T \sim t(n)$
+Rand Sam from a norm pop: $T$=$\frac{\bar X - \mu}{S / \sqrt{n}} \sim t(n-1)$
+\item \rnname{F-dist}: Let $U \sim \chi^2(n_1)$, $V \sim \chi^2(n_2)$ and $U$, $V$ are indep. Then $F = \frac{U/n_1}{V/n_2} \sim F(n_1, n_2)$ (follows F-dist with ($n_1$, $n_2$) deg of freedom) \\
+$f_F(x) = \frac{n_1^{n_1/2}n_2^{n_2/2}\Gamma(\frac{n_1+n_2}{2})}{\Gamma(n1/2)\Gamma(n2/2)} \frac{x^{(n_1/2+1)}}{(n_1x + n_2)^{(n_1+n_2)/2}}$ for $x > 0$ \\
+With $n_1$ and $n_2$ samples, $F = \frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} \sim F(n_1 - 1, n_2 - 1)$, $\sigma$ are var of pop \\
+If $F \sim F(n, m)$, then $1/F \sim F(m, n)$. \\
+$F(n_1,n_2;\alpha)$ is $k$ satisfying $P(F > k) = \alpha$, $F \sim F(n_1, n_2)$. $F(n_1, n_2;1-\alpha)$ = $1/F(n_2,n_1;\alpha)$
+\end{flatitemize}
+\begin{flatitemize}
+\rntopic{Estimation}
+\item $f_X(x;\theta)$ is the pdf of RV $X$ with an unknown parameter $\theta$. Value of $\theta$ can be estimated.
+\item \rnname{Statistic}: A function of rand sample which does not depend on any unknown parameters. Eg: $max(X_1, X_2, ... X_n)$
+\item \rnname{Point est}: Use a statistic to est the unknown param $\theta$. The \textbf{statistic} will be called \textbf{point estimator}.
+\item \rnname{Interval est}: Two statistics ($\hat \Theta_L, \hat \Theta_R)$ consistutes an interval for which the prob of containing the unknown parameter $\theta$ can be determined.
+\item \rnname{Unbiased Estimator}: $E(\hat \Theta) = \theta$ Eg: Unbiased: $E(\bar X)$=$\mu$, $E(S^2)$=$\sigma^2$ Biased: $E(T)$=$\frac{n-1}{n}\sigma^2 \neq \sigma^2$
+\item \rnname{CI for $\mu$, known $\sigma$}: $\bar X \pm z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$ (See CLT)
+% $P(-z_{\alpha/2} < \frac{\bar X - \mu}{\sigma / \sqrt{n}} < z_{\alpha/2})$\\
+% CI for $\mu$: $\bar X \pm z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$ \\
+% $P(\bar X - z_{\alpha/2}\frac{\sigma}{\sqrt{n}}< \mu < \bar X + z_{\alpha/2}\frac{\sigma}{\sqrt{n}})$ = $1-\alpha$
+\\ If we want $P(|\bar X - \mu| \leq e) \geq 1 - \alpha$, where $e$ is margin of error, then $e \geq z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$, $n \geq (z_{\alpha/2}\frac{\sigma}{e})^2$
+\item \rnname{CI for $\mu$, unknown $\sigma$}: $\bar X \pm t_{n-1;\alpha/2} (\frac{S}{\sqrt{n}})$ \\
+If $n > 30$, $\bar X \pm z_{\alpha/2} (\frac{S}{\sqrt{n}})$
+% $T = \frac{\bar X - \mu}{S/\sqrt{n}}$, then $T \sim t(n-1)$,  $P(-t_{n-1;\alpha/2}<T<t_{n-1;\alpha/2})$ = $1-\alpha$ \\
+% $P(\bar X - t_{n-1;\alpha/2} (\frac{S}{\sqrt{n}}) < \mu < \bar X + t_{n-1;\alpha/2} (\frac{S}{\sqrt{n}}))$  \\
+% For $n > 30$, t-dist app $N(0, 1)$: use $z_{\alpha/2}$ 
+% $P(\bar X - z_{\alpha/2}\frac{S}{\sqrt{n}}< \mu < \bar X + z_{\alpha/2}\frac{S}{\sqrt{n}})$=$1-\alpha$
+
+\item \rnname{CI for $\mu_1 - \mu_2$, $\sigma_1^2 \neq \sigma_2^2$}: \\ 
+$(\bar X_1 - \bar X_2) \pm z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}$ (known $\sigma_1^2$, $\sigma_2^2$)
+
+% If norm/large pop (CLT) and $\sigma_1^2$, $\sigma_2^2$ is known, $\sigma_1^2 \neq \sigma_2^2$: $\bar X_1 - \bar X_2 \sim N(\mu_1 - \mu_2, \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2})$ \\
+%Conf Intvl: $(\bar X_1 - X_2) \pm z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}$
+% $P(-z_{\alpha/2} < \frac{(\bar X_1 - \bar X_2)-(\mu_1 - \mu_2)}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} < z_{\alpha/2})$=$1-\alpha$ \\
+% $(\bar X_1 - \bar X_2) - z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} < \mu_1 - \mu_2 < (\bar X_1 - \bar X_2) + z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}$ \\
+% Did not add confidence interval, can be derived from above equation
+$n_1$, $n_2$ $\geq 30$: If $\sigma_1^2$, $\sigma_2^2$ dk, can subst with $S_1^2$, $S_2^2$.
+\item \rnname{CI for $\mu_1 - \mu_2$, $\sigma_1^2 = \sigma_2^2$}:
+If dk $\sigma^2$, use pooled sample variance $S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$
+$(\bar X_1$-$\bar X_2) \pm t_{n_1+n_2-2;\alpha/2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}$ (smal, nor)\\
+$(\bar X_1$-$\bar X_2) \pm z_{\alpha/2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}$ (n$\geq$30)
+
+% If $\sigma_1^2$ and $\sigma_2^2$ dk, norm pop, $n_1$,$n_2\leq30$, $(\bar X_1 - \bar X_2) \sim N(\mu_1 - \mu_2, \sigma^2 (\frac{1}{n_1} + \frac{1}{n_2}))$.
+
+% \\ If dk $\sigma^2$, use pooled sample variance $S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$.\\
+% $P(-t_{n_1+n_2-2;\alpha/2} < \frac{(\bar X_1 - \bar X_2) - (\mu_1 - \mu_2)}{\sqrt{S_p^2(1/n_1 + 1/n_2)}} < t_{n_1+n_2-2;\alpha/2})$=$1-\alpha$. \\
+% $(\bar X_1 - \bar X_2) - t_{n_1+n_2-2;\alpha/2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}} < \mu_1 - \mu_2 < (\bar X_1 - \bar X_2) + t_{n_1+n_2-2;\alpha/2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}$
+% For large samples ($n_1, n_2 \geq 30$), can replace $t_{n_1+n_2-2;\alpha/2}$ by $z_{\alpha/2}$.
+
+\item \rnname{CI for $\mu_D=\mu_1-\mu_2$}:
+$d_i = x_i - y_i$ \\ $S_D^2 = \frac{1}{n-1}\sum_{i=1}^n(d_i-\bar d)^2$ \\
+$\bar d \pm t_{n-1;\alpha/2}(\frac{S_D}{\sqrt{n}})$ (smal, norm)
+$\bar d \pm z_{\alpha/2}(\frac{S_D}{\sqrt{n}})$ (big)
+
+
+% $\bar d - t_{n-1;\alpha/2}(\frac{S_D}{\sqrt{n}}) < \mu_D < \bar d + t_{n-1;\alpha/2}(\frac{S_D}{\sqrt{n}})$ \\
+% Large sample, repl $t_{n-1;\alpha/2}$ by $z_{\alpha/2}$
+\item \rnname{CI for $\sigma^2$, normal pop}: $S^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \bar X)^2$ is a pt est of $\sigma^2$.
+\item \rnname{CI for $\sigma^2$, normal pop, known $\mu$}: \\
+$\frac{\sum_{i=1}^{n}(X_i - \mu)^2}{\chi_{n;\alpha/2}^2} < \sigma^2 < \frac{\sum_{i=1}^{n}(X_i - \mu)^2}{\chi_{n;1-\alpha/2}^2}$
+\item \rnname{CI for $\sigma^2$, normal pop, unknown $\mu$}: \\
+$\frac{(n-1)S^2}{\chi_{n-1;\alpha/2}^2} < \sigma^2 < \frac{(n-1)S^2}{\chi_{n-1;1-\alpha/2}^2}$, $s = $ sample var
+\item \rnname{CI for $\sigma$}: To get $\sigma$, just take sq root of range.
+\item \rnname{CI for $\frac{\sigma_1^2}{\sigma_2^2}$: norm pop, unknown $\mu_1 \mu_2$}:
+$\frac{S_1^2}{S_2^2}\frac{1}{F_{n_1 - 1; n_2 - 1; \alpha/2}} < \frac{\sigma_1^2}{\sigma_2^2} < \frac{S_1^2}{S_2^2}\frac{1}{F_{n_1 - 1; n_2 - 1; 1-\alpha/2}}$ = \\
+$\frac{S_1^2}{S_2^2}\frac{1}{F_{n_1 - 1; n_2 - 1; \alpha/2}} < \frac{\sigma_1^2}{\sigma_2^2} < \frac{S_1^2}{S_2^2}F_{n_2 - 1; n_1 - 1; \alpha/2}$ \\
+Similarly to find $\frac{\sigma_1}{\sigma_2}$ just take sqrt.
+\end{flatitemize}
+\begin{flatitemize}
+\rntopic{Testing}
+\item \rnname{Type1 err}: Rej $H_0$ when $H_0$ is true. P(type1) = $\alpha$ = Significance Level
+\item \rnname{Type2 err}: Didn't rej $H_0$ when $H_0$ is false. P(type2) = P($H_0$ accepted | $H_1$) = $\beta$.
+\item \rnname{Power}=$1-\beta$
+\item \rnname{Rej/Crit Region}: Area that causes $H_0$ to be rej.
+\item \rnname{p-value}: Prob of obtaining a more extr result than the sam mean/var. Rmb to multiply by $2$ for 2TT.
+\item \rnname{Two-tail test}: $H_0: \mu = \mu_0$ vs $H_1: \mu \neq \mu_0$ \\ Can calculate CI and reject if not in CI.
+% \item \rnname{One-tail test}: If norm or CLT holds, use p-value = $Z = \frac{\bar X - \mu}{\sigma / \sqrt{n}}$, check with $\pm z_{\alpha}$.
+\item \rnname{Test for $\mu$, known $\sigma$}: $Z = \frac{\bar X - \mu_0}{\sigma / \sqrt{n}} \sim N(0, 1)$ \\ 
+Reject if $|Z| > z_{\alpha/2}$ (2TT) or $|Z| > z_{\alpha}$ (1TT).
+\item \rnname{Test for $\mu$, dk $\sigma$}: $T = \frac{\bar X - \mu_0}{S/\sqrt{n}} \sim T(n-1)$ Reject if $|T| > t_{n-1;\alpha/2}$ (2TT) or $|T| > t_{n-1;\alpha}$ (1TT).
+\item \rnname{Test for $\mu_1 - \mu_2$}: $Z = \frac{(\bar X_1 - \bar X_2) - \mu_0}{\sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}} \sim N(0, 1)$ \\
+$Z = \frac{(\bar X_1 - \bar X_2) - \mu_0}{\sqrt{S_1^2/n_1 + S_2^2/n_2}} \sim N(0, 1)$ (big $n$, dk $\sigma$)
+\item \rnname{Test for $\mu_1 - \mu_2$, $\sigma_1^2 = \sigma_2^2$}:
+% $S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$
+$T = \frac{(\bar X_1 - \bar X_2) - \mu_0}{S_p\sqrt{1/n_1 + 1/n_2}} \sim T(n_1 + n_2 - 2)$
+\item \rnname{Test for $\mu_D$, $D_i = X_i-Y_i$}:
+$T = \frac{\bar D - \mu_{D, 0}}{S_D/\sqrt{n}}$ \\
+$T \sim t(n-1)$ (n$<$30, norm); $T \sim N(0, 1)$ (n$\geq$30)
+\item \rnname{Test for $\sigma^2$}: $\chi^2 = \frac{(n-1)S^2}{\sigma_0^2} \sim \chi^2(n-1)$ \\
+$\sigma^2 > \sigma_0^2$: rej if $\chi^2 > \chi^2_{n-1;\alpha}$ \\
+$\sigma^2 < \sigma_0^2$: rej if $\chi^2 < \chi^2_{n-1;1-\alpha}$ \\
+$\sigma^2 \neq \sigma_0^2$: rej if $\chi^2 < \chi^2_{n-1;1-\alpha/2}$ or $\chi^2 > \chi^2_{n-1;\alpha/2}$
+\item \rnname{Test for $H_0: \sigma_1^2 = \sigma_2^2$}:
+$F = \frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-1)$ \\
+$\sigma_1^2 > \sigma_2^2$: rej if $F > F_{n_1-1;n_2-1;\alpha}$ \\
+$\sigma_1^2 < \sigma_2^2$: rej if $F < F_{n_1-1;n_2-1;1-\alpha}$ \\
+$\sigma_1^2 \neq \sigma_2^2$: rej if $F < F_{n_1-1;n_2-1;1-\alpha/2}$ or $F > F_{n_1-1;n_2-1;\alpha/2}$
+\end{flatitemize}
+\end{multicols*}
+\end{document}
